@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	    <!-- Property File 인코딩을 지정할 필요가 있을 경우 선언(한글깨짐 방지) -->
+	    <property name="fileEncoding"><value>UTF-8</value></property>
+		<property name="locations">
+			<list>
+				<value>WEB-INF/conf/configuration-*.properties</value>
+				<value>WEB-INF/conf/resources-*.properties</value>
+        	</list>
+    	</property>
+	</bean>
+
+	<bean id="baseDAO" abstract="true" class="skcc.nexcore.client.application.base.BaseDAO">
+		<property name="dataSource" ref="ds-nexadmin"/>
+	</bean>
+	
+	<bean id="nexcoreBaseDAO" abstract="true" class="skcc.nexcore.client.application.base.BaseDAO">
+		<property name="dataSource" ref="ds-nexcore"/>
+	</bean>
+
+	<bean id="nexcoreBaseExtDAO" abstract="true" class="skcc.nexcore.client.application.base.BaseDAO">
+		<property name="dataSource" ref="ds-nexcore-ext"/>
+	</bean>
+
+	<!-- bean id="nextraceBaseDAO" abstract="true" class="skcc.nexcore.client.application.base.BaseDAO">
+		<property name="dataSource" ref="ds-nextrace"/>
+	</bean-->
+
+	<bean id="databaseMonitor" class="skcc.nexcore.client.application.database.DatabaseMonitor">
+		<property name="dataSourceMap">
+			<map>
+				<entry key="ds-nexadmin"    value-ref="ds-nexadmin"/>
+				<entry key="ds-nexcore"     value-ref="ds-nexcore"/>
+				<entry key="ds-nexcore-ext" value-ref="ds-nexcore-ext"/>
+				<entry key="ds-info-bi"     value-ref="ds-info-bi"/>
+        	</map>
+    	</property>
+	</bean>
+
+	<bean id="databaseExporter" class="skcc.nexcore.client.application.database.DatabaseExporter">
+	</bean>
+
+	<bean id="mailer" class="skcc.nexcore.client.foundation.mail.Mailer">
+		<property name="smtpHost" value="${mail.smtp.host}"/>
+		<property name="smtpPort" value="${mail.smtp.port}"/>
+		<property name="smtpAuth" value="${mail.smtp.auth}"/>
+		<property name="userName" value="${mail.smtp.userName}"/>
+		<property name="password" value="${mail.smtp.password}"/>
+	</bean>
+
+	<bean id="defaultAuthority" class="skcc.nexcore.client.applicationext.auth.DefaultAuthority">
+		<property name="menuGroupMapDAO" ref="menuGroupMapDAO"/>
+	</bean>
+
+	<bean id="defaultActionHistory" class="skcc.nexcore.client.applicationext.auth.DefaultActionHistory">
+		<property name="actionHistoryService" ref="actionHistoryService"/>
+	</bean>
+
+	<bean id="baseController" abstract="true" class="skcc.nexcore.client.applicationext.base.BaseController">
+		<property name="baseAuthority"                 ref="defaultAuthority"/>
+		<property name="baseActionHistory"             ref="defaultActionHistory"/>
+		<property name="mailer"                        ref="mailer"/>
+	</bean>
+	
+	<bean id="localeConfigurationLoader" class="skcc.nexcore.client.application.configuration.ConfigurationLoader" init-method="init" destroy-method="destroy">
+		<property name="polling"                 value="${file.polling.use_polling}"/>
+		<property name="pollingInterval"         value="${file.polling.time_interval}"/>
+        <property name="parser">
+            <bean class="skcc.nexcore.client.application.configuration.parser.LocaleConfigurationParser" />
+        </property>
+		<property name="locations">
+			<list>
+				<value>WEB-INF/resources/locale.xml</value>
+        	</list>
+    	</property>
+	</bean>
+
+	<bean id="labelConfigurationLoader" class="skcc.nexcore.client.application.configuration.ConfigurationLoader" init-method="init" destroy-method="destroy">
+		<property name="polling"                 value="${file.polling.use_polling}"/>
+		<property name="pollingInterval"         value="${file.polling.time_interval}"/>
+        <property name="parser">
+            <bean class="skcc.nexcore.client.application.configuration.parser.LabelConfigurationParser" />
+        </property>
+		<property name="locations">
+			<list>
+				<value>WEB-INF/resources/label-*.xml</value>
+        	</list>
+    	</property>
+	</bean>
+
+	<bean id="codeConfigurationLoader" class="skcc.nexcore.client.application.configuration.ConfigurationLoader" init-method="init" destroy-method="destroy">
+		<property name="polling"                 value="${file.polling.use_polling}"/>
+		<property name="pollingInterval"         value="${file.polling.time_interval}"/>
+        <property name="parser">
+            <bean class="skcc.nexcore.client.application.configuration.parser.CodeConfigurationParser" />
+        </property>
+		<property name="locations">
+			<list>
+				<value>WEB-INF/resources/code-*.xml</value>
+        	</list>
+    	</property>
+	</bean>
+
+	<bean id="dataConfigurationLoader" class="skcc.nexcore.client.application.configuration.ConfigurationLoader" init-method="init" destroy-method="destroy">
+		<property name="polling"                 value="${file.polling.use_polling}"/>
+		<property name="pollingInterval"         value="${file.polling.time_interval}"/>
+        <property name="parser">
+            <bean class="skcc.nexcore.client.application.configuration.parser.DataConfigurationParser" />
+        </property>
+		<property name="locations">
+			<list>
+				<value>WEB-INF/resources/data-*.xml</value>
+        	</list>
+    	</property>
+	</bean>
+
+	<bean id="messageConfigurationLoader" class="skcc.nexcore.client.application.configuration.ConfigurationLoader" init-method="init" destroy-method="destroy">
+		<property name="polling"                 value="${file.polling.use_polling}"/>
+		<property name="pollingInterval"         value="${file.polling.time_interval}"/>
+        <property name="parser">
+            <bean class="skcc.nexcore.client.application.configuration.parser.MessageConfigurationParser" />
+        </property>
+		<property name="locations">
+			<list>
+				<value>WEB-INF/resources/message-*.xml</value>
+        	</list>
+    	</property>
+	</bean>
+
+</beans>

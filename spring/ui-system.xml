@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xmlns:aop="http://www.springframework.org/schema/aop"
+     xmlns:tx="http://www.springframework.org/schema/tx"
+     xsi:schemaLocation="
+     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	   <!-- Property File 인코딩을 지정할 필요가 있을 경우 선언(한글깨짐 방지) -->
+	   <property name="fileEncoding"><value>UTF-8</value></property>
+		<property name="locations">
+			<list>
+				<!-- value>WEB-INF/conf/authority-system.properties</value>
+				<value>WEB-INF/conf/authority-clientext-nexadmin.properties</value>
+				<value>WEB-INF/conf/authority-clientext-nexadminext-solomon.properties</value>
+				<value>WEB-INF/conf/authority-clientext-nextrace.properties</value-->
+				<value>WEB-INF/conf/authority-*.properties</value>
+        	</list>
+    	</property>
+	</bean>
+
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass">
+			<value>org.springframework.web.servlet.view.JstlView</value>			
+		</property>
+		<property name="cache" value="true" />
+		<property name="prefix" value="/" />
+		<property name="suffix" value=".jsp" />
+		<property name="contentType" value="text/html;charset=euc-kr"/>
+	</bean>
+
+	<!-- 조회성 혹은 정적인 페이지 로딩을 위한 controller -->
+	<bean id="staticViewController"   class="org.springframework.web.servlet.mvc.UrlFilenameViewController"/>
+	
+	<bean id="beanNameUrlMapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
+		<property name="order"><value>1</value></property>
+	</bean>
+
+	<!-- 사용자 체크 -->
+	<bean id="authCheckInterceptor" class="skcc.nexcore.client.applicationext.helper.AuthCheckInterceptor">
+		<property name="skipList">
+			<list>
+				<value>/index.do</value>
+				<value>/system/index.do</value>
+				<value>/system/login.do</value>
+				<value>/install/install.do</value>
+				<value>/install/installDB.do</value>
+				<value>/clientext/nexadmin/cacheMonitoringRefresh4ExternalCall.do</value>
+				<value>/clientext/nexadmin/cacheMonitoringCheckC4ExternalCall.do</value>
+                <value>/clientext/nexadmin/cacheMonitoringCheckJavaExternalCall.do</value>
+				<value>/clientext/nexadmin/monitorTargetDirectory.do</value>
+				<value>/clientext/nexadmin/cacheMonitoringBizCompInit.do</value>
+                <value>/clientext/nexadmin/serverStatusRefreshExternal.do</value>
+				<value>/innorules/pm.jsp</value>
+				<value>/system/error/error500.do</value>
+				<value>/system/error/error404.do</value>
+			</list>
+		</property>
+		<property name="initList">
+			<list>
+				<value>/system/home.do</value>
+			</list>
+		</property>
+		<property name="sessionoutPage" value="/system/sessionout.do"/>
+	</bean>
+
+	<!-- 로그인/로그아웃 -->
+	<bean id="loginController" class="skcc.nexcore.client.applicationext.controller.LoginController">
+		<property name="userService" ref="userService"/>
+		<property name="groupService" ref="groupService"/>
+		<property name="menuService" ref="menuService"/>
+		<property name="loginHistoryService" ref="loginHistoryService"/>
+		<property name="methodNameResolver">
+			<ref local="loginControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="loginControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/system/index.do">loginView</prop>
+				<prop key="/system/login.do">loginAction</prop>
+				<prop key="/system/logout.do">logoutAction</prop>
+				<prop key="/system/main.do">main</prop>
+				<prop key="/system/home.do">home</prop>
+				<prop key="/system/sitemap.do">sitemap</prop>
+				<prop key="/system/loginHistory.do">loginHistoryView</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- 공통 기능 -->
+	<bean id="commonController" class="skcc.nexcore.client.applicationext.controller.CommonController">
+		<property name="menuService"  ref="menuService"/>
+		<property name="userService"  ref="userService"/>
+		<property name="groupService" ref="groupService"/>
+		<property name="methodNameResolver">
+			<ref local="commonControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="commonControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/system/decorators/main.do">mainDecorator</prop>
+				<prop key="/system/decorators/menu.do">menuDecorator</prop>
+				<prop key="/system/decorators/bottom.do">bottomDecorator</prop>
+				<prop key="/system/decorators/pageTitle.do">pageTitle</prop>
+				<prop key="/system/common/navigate.do">navigate</prop>
+				<prop key="/system/common/navigateView.do">navigateView</prop>
+				<prop key="/system/common/changeLocale.do">changeLocale</prop>
+				<prop key="/system/common/changeDomain.do">changeDomain</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- 로그인 히스토리 -->
+	<bean id="loginHistoryController" class="skcc.nexcore.client.applicationext.controller.LoginHistoryController" parent="baseController">
+		<property name="authorityFunctionId" value="${/system/admin/loginHistory.do}"/>
+
+		<property name="loginHistoryService" ref="loginHistoryService"/>
+		<property name="methodNameResolver">
+			<ref local="loginHistoryControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="loginHistoryControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/system/admin/loginHistory.do">listView</prop>
+				<prop key="/system/admin/loginHistoryDelete.do">delete</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- 처리 히스토리 -->
+	<bean id="actionHistoryController" class="skcc.nexcore.client.applicationext.controller.ActionHistoryController" parent="baseController">
+		<property name="authorityFunctionId" value="${/system/admin/actionHistory.do}"/>
+
+		<property name="actionHistoryService" ref="actionHistoryService"/>
+		<property name="methodNameResolver">
+			<ref local="actionHistoryControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="actionHistoryControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/system/admin/actionHistory.do">listView</prop>
+				<prop key="/system/admin/actionHistoryByUser.do">listByUserView</prop>
+				<prop key="/system/admin/actionHistoryDelete.do">delete</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- 사용자 -->
+	<bean id="userController" class="skcc.nexcore.client.applicationext.controller.UserController" parent="baseController">
+		<property name="authorityFunctionId" value="${/system/admin/userList.do}"/>
+		
+		<property name="userService" ref="userService"/>
+		<property name="groupService" ref="groupService"/>
+		<property name="methodNameResolver">
+			<ref local="userControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="userControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/system/admin/userList.do">listView</prop>
+				<prop key="/system/admin/userInsertView.do">insertView</prop>
+				<prop key="/system/admin/userUpdateView.do">updateView</prop>
+				<prop key="/system/admin/userDuplicateCheck.do">duplicateCheck</prop>
+				<prop key="/system/admin/userInsert.do">insert</prop>
+				<prop key="/system/admin/userUpdate.do">update</prop>
+				<prop key="/system/admin/userUpdateStatus.do">updateStatus</prop>
+				<prop key="/system/admin/userDelete.do">delete</prop>
+				<prop key="/system/admin/userPasswordReset.do">resetPassword</prop>
+				<prop key="/system/admin/userExcel.do">excel</prop>
+				<prop key="/system/admin/userPdf.do">pdf</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- MY INFO -->
+	<bean id="myController" class="skcc.nexcore.client.applicationext.controller.MyController" parent="baseController">
+		<property name="authorityFunctionId" value="${/system/admin/myInfoView.do}"/>
+		
+		<property name="userService" ref="userService"/>
+		<property name="groupService" ref="groupService"/>
+		<property name="methodNameResolver">
+			<ref local="myControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="myControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/system/admin/myInfoView.do">myInfoView</prop>
+				<prop key="/system/admin/myInfoUpdate.do">updateMyInfo</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- 메뉴 -->
+	<bean id="menuController" class="skcc.nexcore.client.applicationext.controller.MenuController" parent="baseController">
+		<property name="authorityFunctionId" value="${/system/admin/menuList.do}"/>
+		
+		<property name="menuService" ref="menuService"/>
+		<property name="menuLocaleService" ref="menuLocaleService"/>
+		<property name="methodNameResolver">
+			<ref local="menuControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="menuControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/system/admin/menuList.do">listView</prop>
+				<prop key="/system/admin/menuInsertView.do">insertView</prop>
+				<prop key="/system/admin/menuUpdateView.do">updateView</prop>
+				<prop key="/system/admin/menuDuplicateCheck.do">duplicateCheck</prop>
+				<prop key="/system/admin/menuInsert.do">insert</prop>
+				<prop key="/system/admin/menuUpdate.do">update</prop>
+				<prop key="/system/admin/menuDelete.do">delete</prop>
+				<prop key="/system/admin/menuUpdateOrderNo.do">updateOrderNo</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- 그룹 -->
+	<bean id="groupController" class="skcc.nexcore.client.applicationext.controller.GroupController" parent="baseController">
+		<property name="authorityFunctionId" value="${/system/admin/groupList.do}"/>
+		
+		<property name="groupService"       ref="groupService"/>
+		<property name="groupLocaleService" ref="groupLocaleService"/>
+		<property name="menuService"        ref="menuService"/>
+		<property name="methodNameResolver">
+			<ref local="groupControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="groupControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/system/admin/groupList.do">listView</prop>
+				<prop key="/system/admin/groupInsertView.do">insertView</prop>
+				<prop key="/system/admin/groupUpdateView.do">updateView</prop>
+				<prop key="/system/admin/groupDuplicateCheck.do">duplicateCheck</prop>
+				<prop key="/system/admin/groupInsert.do">insert</prop>
+				<prop key="/system/admin/groupUpdate.do">update</prop>
+				<prop key="/system/admin/groupDelete.do">delete</prop>
+				<prop key="/system/admin/groupMenuMappingView.do">menuMappingView</prop>
+				<prop key="/system/admin/groupMenuMapping.do">menuMapping</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- DATA EXPORT -->
+	<bean id="databaseController" class="skcc.nexcore.client.applicationext.controller.DatabaseController" parent="baseController">
+		<property name="authorityFunctionId" value="${/system/admin/databaseList.do}"/>
+		
+		<property name="databaseMonitor"         ref="databaseMonitor"/>
+		<property name="databaseExporter"        ref="databaseExporter"/>
+		<property name="methodNameResolver">
+			<ref local="databaseControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="databaseControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/system/admin/databaseList.do">listView</prop>
+				<prop key="/system/admin/databaseExportView.do">exportView</prop>
+				<prop key="/system/admin/databaseExport.do">export</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- 스케줄 -->
+	<!-- 
+	<bean id="scheduleController" class="skcc.nexcore.client.applicationext.controller.ScheduleController" parent="baseController">
+		<property name="authorityFunctionId" value="${/system/admin/scheduleList.do}"/>
+		
+		<property name="scheduleService"        ref="scheduleService"/>
+		<property name="scheduleJobInitializer" ref="scheduleJobInitializer"/>
+		<property name="methodNameResolver">
+			<ref local="scheduleControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="scheduleControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/system/admin/scheduleList.do">listView</prop>
+				<prop key="/system/admin/scheduleInsertView.do">insertView</prop>
+				<prop key="/system/admin/scheduleUpdateView.do">updateView</prop>
+				<prop key="/system/admin/scheduleDuplicateCheck.do">duplicateCheck</prop>
+				<prop key="/system/admin/scheduleInsert.do">insert</prop>
+				<prop key="/system/admin/scheduleUpdate.do">update</prop>
+				<prop key="/system/admin/scheduleDelete.do">delete</prop>
+			</props>
+		</property>
+	</bean>
+	 -->
+	
+</beans>

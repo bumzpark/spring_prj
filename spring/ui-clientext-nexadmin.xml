@@ -1,0 +1,1008 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xmlns:aop="http://www.springframework.org/schema/aop"
+     xmlns:tx="http://www.springframework.org/schema/tx"
+     xsi:schemaLocation="
+     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+	<!-- CONFIGURATION SETUP -->
+	<!-- 
+	<bean id="nexadminConfigurationController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminConfigurationController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/configuration.do}"/>
+		
+		<property name="nexadminManagedMbeanService" ref="nexadminManagedMbeanService"/>
+		<property name="nexadminManagedCacheService" ref="nexadminManagedCacheService"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminConfigurationControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="nexadminConfigurationControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/configuration.do">listView</prop>
+				<prop key="/clientext/nexadmin/configurationUpdate.do">update</prop>
+			</props>
+		</property>
+	</bean>
+	 -->
+
+	<!-- TX CONTROL -->
+	<!-- 
+	<bean id="nexadminTxControlController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminTxControlController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/txcontrolList.do}"/>
+		
+		<property name="nexadminTxControlService" ref="nexadminTxControlService"/>
+		<property name="nexadminManagedCacheService" ref="nexadminManagedCacheService"/>
+		<property name="nexadminMbeanExecutor"       ref="nexadminMbeanExecutor"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminTxControlControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="nexadminTxControlControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/txcontrolList.do">listView</prop>
+				<prop key="/clientext/nexadmin/txcontrolInsertView.do">insertView</prop>
+				<prop key="/clientext/nexadmin/txcontrolUpdateView.do">updateView</prop>
+				<prop key="/clientext/nexadmin/txcontrolDuplicateCheck.do">duplicateCheck</prop>
+				<prop key="/clientext/nexadmin/txcontrolInsert.do">insert</prop>
+				<prop key="/clientext/nexadmin/txcontrolUpdate.do">update</prop>
+				<prop key="/clientext/nexadmin/txcontrolDelete.do">delete</prop>
+				<prop key="/clientext/nexadmin/txcontrolSubmitWAS.do">submitWAS</prop>
+			</props>
+		</property>
+	</bean>
+	 -->
+
+	<!-- TX CONTROL by EXPRESSION -->
+	<!-- 
+	<bean id="nexadminTxControlExpressionController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminTxControlExpressionController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/txcontrolExpressionList.do}"/>
+		
+		<property name="nexadminTxControlExpressionService" ref="nexadminTxControlExpressionService"/>
+		<property name="nexadminWasInstanceService" ref="nexadminWasInstanceService"/>
+		<property name="nexadminTransactionLogItemService" ref="nexadminTransactionLogItemService"/>
+		<property name="nexadminManagedCacheService" ref="nexadminManagedCacheService"/>
+		<property name="nexadminMbeanExecutor"       ref="nexadminMbeanExecutor"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminTxControlExpressionControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="nexadminTxControlExpressionControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/txcontrolExpressionList.do">listView</prop>
+				<prop key="/clientext/nexadmin/txcontrolExpressionInsertView.do">insertView</prop>
+				<prop key="/clientext/nexadmin/txcontrolExpressionUpdateView.do">updateView</prop>
+				<prop key="/clientext/nexadmin/txcontrolExpressionDuplicateCheck.do">duplicateCheck</prop>
+				<prop key="/clientext/nexadmin/txcontrolExpressionInsert.do">insert</prop>
+				<prop key="/clientext/nexadmin/txcontrolExpressionUpdate.do">update</prop>
+				<prop key="/clientext/nexadmin/txcontrolExpressionDelete.do">delete</prop>
+				<prop key="/clientext/nexadmin/txcontrolExpressionSubmitWAS.do">submitWAS</prop>
+			</props>
+		</property>
+	</bean>
+	 -->
+
+	<!-- WAS INSTANCE -->
+	<bean id="nexadminWasInstanceController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminWasInstanceController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/wasInstanceList.do}"/>
+		
+		<property name="nexadminWasInstanceService" ref="nexadminWasInstanceService"/>
+		<!-- submitWAS 기능 사용 불가하게 되어 쓰이지 않는 컴포넌트 레퍼런스임.  
+		<property name="nexadminManagedCacheService" ref="nexadminManagedCacheService"/>
+		<property name="nexadminMbeanExecutor"       ref="nexadminMbeanExecutor"/>
+		 -->
+		<property name="methodNameResolver">
+			<ref local="nexadminWasInstanceControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="nexadminWasInstanceControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/wasInstanceList.do">listView</prop>
+				<prop key="/clientext/nexadmin/wasInstanceInsertView.do">insertView</prop>
+				<prop key="/clientext/nexadmin/wasInstanceUpdateView.do">updateView</prop>
+				<prop key="/clientext/nexadmin/wasInstanceDuplicateCheck.do">duplicateCheck</prop>
+				<prop key="/clientext/nexadmin/wasInstanceInsert.do">insert</prop>
+				<prop key="/clientext/nexadmin/wasInstanceUpdate.do">update</prop>
+				<prop key="/clientext/nexadmin/wasInstanceDelete.do">delete</prop>
+				<!-- 
+				<prop key="/clientext/nexadmin/wasInstanceSubmitWAS.do">submitWAS</prop>
+				 -->
+			</props>
+		</property>
+	</bean>
+
+	<!-- WAS CLUSTER -->
+	<!-- bean id="nexadminWasClusterController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminWasClusterController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/wasClusterList.do}"/>
+		
+		<property name="nexadminWasClusterService" ref="nexadminWasClusterService"/>
+		<property name="nexadminManagedCacheService" ref="nexadminManagedCacheService"/>
+		<property name="nexadminMbeanExecutor"       ref="nexadminMbeanExecutor"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminWasClusterControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="nexadminWasClusterControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/wasClusterList.do">listView</prop>
+				<prop key="/clientext/nexadmin/wasClusterAddView.do">insertView</prop>
+				<prop key="/clientext/nexadmin/wasClusterModifyView.do">updateView</prop>
+				<prop key="/clientext/nexadmin/wasClusterDuplicateCheck.do">duplicateCheck</prop>
+				<prop key="/clientext/nexadmin/wasClusterAdd.do">insert</prop>
+				<prop key="/clientext/nexadmin/wasClusterModify.do">update</prop>
+				<prop key="/clientext/nexadmin/wasClusterDelete.do">delete</prop>
+			</props>
+		</property>
+	</bean -->
+
+	<!-- RESOURCE : CODE GROUP -->
+	<!-- 
+	<bean id="nexadminCodeGroupController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminCodeGroupController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/codeGroupList.do}"/>
+		
+		<property name="nexadminCodeGroupService" ref="nexadminCodeGroupService"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminCodeGroupControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="nexadminCodeGroupControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/codeGroupList.do">listView</prop>
+				<prop key="/clientext/nexadmin/codeGroupInsertView.do">insertView</prop>
+				<prop key="/clientext/nexadmin/codeGroupUpdateView.do">updateView</prop>
+				<prop key="/clientext/nexadmin/codeGroupDuplicateCheck.do">duplicateCheck</prop>
+				<prop key="/clientext/nexadmin/codeGroupInsert.do">insert</prop>
+				<prop key="/clientext/nexadmin/codeGroupUpdate.do">update</prop>
+				<prop key="/clientext/nexadmin/codeGroupDelete.do">delete</prop>
+			</props>
+		</property>
+	</bean>
+	 -->
+
+	<!-- RESOURCE : CODE ATTRIBUTE -->
+	<!-- 
+	<bean id="nexadminCodeAttributeController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminCodeAttributeController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/codeAttributeList.do}"/>
+		
+		<property name="nexadminCodeAttributeService" ref="nexadminCodeAttributeService"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminCodeAttributeControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="nexadminCodeAttributeControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/codeAttributeList.do">listView</prop>
+				<prop key="/clientext/nexadmin/codeAttributeInsertView.do">insertView</prop>
+				<prop key="/clientext/nexadmin/codeAttributeUpdateView.do">updateView</prop>
+				<prop key="/clientext/nexadmin/codeAttributeDuplicateCheck.do">duplicateCheck</prop>
+				<prop key="/clientext/nexadmin/codeAttributeInsert.do">insert</prop>
+				<prop key="/clientext/nexadmin/codeAttributeUpdate.do">update</prop>
+				<prop key="/clientext/nexadmin/codeAttributeDelete.do">delete</prop>
+			</props>
+		</property>
+	</bean>
+	 -->
+
+	<!-- RESOURCE : CODE ITEM -->
+	<!-- 
+	<bean id="nexadminCodeItemController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminCodeItemController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/codeItemList.do}"/>
+		
+		<property name="nexadminCodeItemService" ref="nexadminCodeItemService"/>
+		<property name="nexadminManagedCacheService" ref="nexadminManagedCacheService"/>
+		<property name="nexadminMbeanExecutor"       ref="nexadminMbeanExecutor"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminCodeItemControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="nexadminCodeItemControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/codeItemList.do">listView</prop>
+				<prop key="/clientext/nexadmin/codeItemInsertView.do">insertView</prop>
+				<prop key="/clientext/nexadmin/codeItemUpdateView.do">updateView</prop>
+				<prop key="/clientext/nexadmin/codeItemDuplicateCheck.do">duplicateCheck</prop>
+				<prop key="/clientext/nexadmin/codeItemInsert.do">insert</prop>
+				<prop key="/clientext/nexadmin/codeItemUpdate.do">update</prop>
+				<prop key="/clientext/nexadmin/codeItemDelete.do">delete</prop>
+				<prop key="/clientext/nexadmin/codeItemSubmitWAS.do">submitWAS</prop>
+			</props>
+		</property>
+	</bean>
+	 -->
+
+	<!-- RESOURCE : MESSAGE -->
+	<!-- 
+	<bean id="nexadminMessageController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminMessageController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/messageList.do}"/>
+		
+		<property name="nexadminMessageService" ref="nexadminMessageService"/>
+		<property name="nexadminManagedCacheService" ref="nexadminManagedCacheService"/>
+		<property name="nexadminMbeanExecutor"       ref="nexadminMbeanExecutor"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminMessageControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="nexadminMessageControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/messageList.do">listView</prop>
+				<prop key="/clientext/nexadmin/messageInsertView.do">insertView</prop>
+				<prop key="/clientext/nexadmin/messageUpdateView.do">updateView</prop>
+				<prop key="/clientext/nexadmin/messageDuplicateCheck.do">duplicateCheck</prop>
+				<prop key="/clientext/nexadmin/messageInsert.do">insert</prop>
+				<prop key="/clientext/nexadmin/messageUpdate.do">update</prop>
+				<prop key="/clientext/nexadmin/messageDelete.do">delete</prop>
+				<prop key="/clientext/nexadmin/messageSubmitWAS.do">submitWAS</prop>
+			</props>
+		</property>
+	</bean>
+	 -->
+	
+	<!-- RESOURCE : ADDITIONAL MESSAGE -->
+	<!-- 
+	<bean id="nexadminAdditionalMessageController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminAdditionalMessageController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/messageList.do}"/>
+		
+		<property name="nexadminAdditionalMessageService" ref="nexadminAdditionalMessageService"/>
+		<property name="nexadminManagedCacheService" ref="nexadminManagedCacheService"/>
+		<property name="nexadminMbeanExecutor"       ref="nexadminMbeanExecutor"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminAdditionalMessageControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="nexadminAdditionalMessageControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/additionalMessageList.do">listView</prop>
+			</props>
+		</property>
+	</bean>
+	 -->
+
+	<!--  SERVICE : COMPONENT LIST (FROM DB TABLE) -->
+
+	<bean id="nexadminComponentListController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminComponentListController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/componentList.do}"/>
+		<property name="nexadminComponentListService" ref="nexadminComponentListService"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminComponentListControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="nexadminComponentListControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/componentList.do">listView</prop>                
+			</props>
+		</property>
+	</bean>
+	
+	<!--  SERVICE : SERVICE LIST (FROM DB TABLE) -->
+
+	<bean id="nexadminServiceListController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminServiceListController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/serviceList.do}"/>
+		<property name="nexadminServiceListService" ref="nexadminServiceListService"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminServiceListControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="nexadminServiceListControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/serviceList.do">listView</prop>                
+			</props>
+		</property>
+	</bean>
+	
+	<!--  SERVICE : TRANSACTION CONTROL -->
+
+	<bean id="nexadminTransactionController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminTransactionController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/transactionListOfAs.do}"/>
+		<property name="nexadminTransactionService" ref="nexadminTransactionService"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminTransactionControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="nexadminTransactionControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/transactionListOfAs.do">listViewOfAs</prop>
+				<prop key="/clientext/nexadmin/transactionListOfOs.do">listViewOfOs</prop>
+				<prop key="/clientext/nexadmin/transactionUpdateViewOfAs.do">updateViewOfAs</prop>
+				<prop key="/clientext/nexadmin/transactionUpdateViewOfOs.do">updateViewOfOs</prop>
+				<prop key="/clientext/nexadmin/transactionUpdateOfAs.do">updateOfAs</prop>
+				<prop key="/clientext/nexadmin/transactionUpdateOfOs.do">updateOfOs</prop>
+				<prop key="/clientext/nexadmin/transactionDeleteOfAs.do">deleteOfAs</prop>
+				<prop key="/clientext/nexadmin/transactionDeleteOfOs.do">deleteOfOs</prop>
+				<prop key="/clientext/nexadmin/trBlockedHistoryList.do">listTrBlockedHistoryView</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- MEDIA GROUP -->
+
+	<bean id="nexadminMediaGroupController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminMediaGroupController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/mediaGroupList.do}"/>
+		<property name="nexadminMediaGroupService" ref="nexadminMediaGroupService"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminMediaGroupControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="nexadminMediaGroupControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/mediaGroupList.do">listView</prop>
+				<prop key="/clientext/nexadmin/mediaGroupInsertView.do">insertView</prop>
+				<prop key="/clientext/nexadmin/mediaGroupInsert.do">insert</prop>
+				<prop key="/clientext/nexadmin/mediaGroupUpdateView.do">updateView</prop>
+				<prop key="/clientext/nexadmin/mediaGroupUpdate.do">update</prop>
+				<prop key="/clientext/nexadmin/mediaGroupDelete.do">delete</prop>
+				<prop key="/clientext/nexadmin/mediaGroupMemberList.do">listMediaGroupMemberView</prop>
+				<prop key="/clientext/nexadmin/mediaGroupMemberInsertView.do">insertMediaGroupMemberView</prop>
+				<prop key="/clientext/nexadmin/mediaGroupMemberInsert.do">insertMediaGroupMember</prop>
+				<prop key="/clientext/nexadmin/mediaGroupMemberDelete.do">deleteMediaGroupMember</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- BASE MSG -->
+
+	<bean id="nexadminBaseMsgController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminBaseMsgController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/baseMsgList.do}"/>
+		<property name="nexadminBaseMsgService" ref="nexadminBaseMsgService"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminBaseMsgControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="nexadminBaseMsgControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/baseMsgList.do">listView</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- SPLM MSG -->
+
+	<bean id="nexadminSplmMsgController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminSplmMsgController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/splmMsgList.do}"/>
+		<property name="nexadminSplmMsgService" ref="nexadminSplmMsgService"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminSplmMsgControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="nexadminSplmMsgControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/splmMsgList.do">listView</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- SERVICE : ONLINE COMPONENT -->
+	<!-- 
+	<bean id="nexadminOnlineComponentController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminOnlineComponentController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/onlineComponentList.do}"/>
+		
+		<property name="nexadminOnlineComponentService" ref="nexadminOnlineComponentService"/>
+		<property name="nexadminBizUnitService" ref="nexadminBizUnitService"/>
+		<property name="nexadminMethodService" ref="nexadminMethodService"/>
+		<property name="nexadminMethodIoService" ref="nexadminMethodIoService"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminOnlineComponentControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="nexadminOnlineComponentControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/onlineComponentList.do">listView</prop>                
+				<prop key="/clientext/nexadmin/onlineComponentStatistic.do">statisticView</prop>                
+				<prop key="/clientext/nexadmin/onlineComponentDetailNodeco.do">detailView</prop>                
+			</props>
+		</property>
+	</bean>
+	 -->
+
+	<!-- SERVICE : ONLINE SQL -->
+	<!-- 
+	<bean id="nexadminOnlineSqlController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminOnlineSqlController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/onlineSqlList.do}"/>
+		
+		<property name="nexadminOnlineComponentService" ref="nexadminOnlineComponentService"/>
+		<property name="nexadminBizUnitService" ref="nexadminBizUnitService"/>
+		<property name="nexadminOnlineSqlService" ref="nexadminOnlineSqlService"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminOnlineSqlControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="nexadminOnlineSqlControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/onlineSqlList.do">listView</prop>                
+				<prop key="/clientext/nexadmin/onlineSqlDetailNodeco.do">detailView</prop>                
+			</props>
+		</property>
+	</bean>
+	 -->
+
+	<!-- DEFERRED TARGET -->
+	<!-- 
+	<bean id="nexadminDeferredTargetController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminDeferredTargetController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/deferredTargetList.do}"/>
+		
+		<property name="nexadminDeferredTargetService" ref="nexadminDeferredTargetService"/>
+		<property name="nexadminWasInstanceService" ref="nexadminWasInstanceService"/>
+		<property name="nexadminManagedCacheService" ref="nexadminManagedCacheService"/>
+		<property name="nexadminMbeanExecutor"       ref="nexadminMbeanExecutor"/>
+		<property name="nexadminTransactionLogItemService" ref="nexadminTransactionLogItemService"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminDeferredTargetControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="nexadminDeferredTargetControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/deferredTargetList.do">listView</prop>
+				<prop key="/clientext/nexadmin/deferredTargetInsertView.do">insertView</prop>
+				<prop key="/clientext/nexadmin/deferredTargetUpdateView.do">updateView</prop>
+				<prop key="/clientext/nexadmin/deferredTargetDuplicateCheck.do">duplicateCheck</prop>
+				<prop key="/clientext/nexadmin/deferredTargetInsert.do">insert</prop>
+				<prop key="/clientext/nexadmin/deferredTargetUpdate.do">update</prop>
+				<prop key="/clientext/nexadmin/deferredTargetDelete.do">delete</prop>
+				<prop key="/clientext/nexadmin/deferredTargetSubmitWAS.do">submitWAS</prop>
+			</props>
+		</property>
+	</bean>
+	 -->
+
+	<!-- DELAY ASYNC -->
+	<!-- 
+	<bean id="nexadminDelayAsyncController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminDelayAsyncController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/delayAsyncList.do}"/>
+		
+		<property name="nexadminDelayAsyncService" ref="nexadminDelayAsyncService"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminDelayAsyncControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="nexadminDelayAsyncControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/delayAsyncList.do">listView</prop>
+			</props>
+		</property>
+	</bean>
+	 -->
+
+	<!-- STRUCTURE ANALYSIS -->
+	<!-- 
+	<bean id="nexadminStructureAnalysisController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminStructureAnalysisController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/structureAnalysisList.do}"/>
+		
+		<property name="nexadminStructureAnalysisService" ref="nexadminStructureAnalysisService"/>
+		<property name="nexadminOnlineComponentService" ref="nexadminOnlineComponentService"/>
+		<property name="nexadminBizUnitService" ref="nexadminBizUnitService"/>
+		<property name="nexadminMethodService" ref="nexadminMethodService"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminStructureAnalysisControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="nexadminStructureAnalysisControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/structureAnalysisList.do">listView</prop>                
+				<prop key="/clientext/nexadmin/structureAnalysisDetailNodeco.do">detailView</prop>                
+			</props>
+		</property>
+	</bean>
+	 -->
+
+	<!-- LOGGER MONITORING -->
+	<!-- 
+	<bean id="nexadminLoggerMonitoringController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminLoggerMonitoringController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/loggerMonitoringList.do}"/>
+		
+		<property name="nexadminWasInstanceService" ref="nexadminWasInstanceService"/>
+		<property name="nexadminManagedMbeanService" ref="nexadminManagedMbeanService"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminLoggerMonitoringControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="nexadminLoggerMonitoringControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/loggerMonitoringList.do">listView</prop>
+				<prop key="/clientext/nexadmin/loggerMonitoringUpdateLevel.do">updateLevel</prop>
+			</props>
+		</property>
+	</bean>
+	 -->
+
+	<!-- DEFERRED MONITORING -->
+	<!-- 
+	<bean id="nexadminDeferredMonitoringController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminDeferredMonitoringController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/deferredMonitoringList.do}"/>
+		
+		<property name="nexadminWasInstanceService" ref="nexadminWasInstanceService"/>
+		<property name="nexadminManagedMbeanService" ref="nexadminManagedMbeanService"/>
+		<property name="nexadminDeferredMonitoringService" ref="nexadminDeferredMonitoringService"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminDeferredMonitoringControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="nexadminDeferredMonitoringControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/deferredMonitoringList.do">listView</prop>
+				<prop key="/clientext/nexadmin/deferredMonitoringExecute.do">execute</prop>
+				<prop key="/clientext/nexadmin/deferredMonitoringUpdateConfig.do">updateConfig</prop>
+			</props>
+		</property>
+	</bean>
+	 -->
+
+	<!-- CACHE MONITORING -->
+	<bean id="nexadminCacheMonitoringController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminCacheMonitoringController" parent="baseController">
+		<description>캐시 갱신. 메뉴를 통한 갱신은 C,Java 별로 Controller를 분리하였고 현 Controller는 ExternalCall 용으로만 쓰임.</description>
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/cacheMonitoringList.do}"/>
+		
+		<property name="nexadminServerManagingService" ref="nexadminServerManagingService"/>
+		<property name="nexadminCServerManagingService" ref="nexadminCServerManagingService"/>
+		<property name="nexadminCacheHistoryService" ref="nexadminCacheHistoryService"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminCacheMonitoringControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="nexadminCacheMonitoringControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/cacheMonitoringList.do">listView</prop>
+				<prop key="/clientext/nexadmin/cacheMonitoringCList.do">cListView</prop>
+				<prop key="/clientext/nexadmin/cacheMonitoringJavaList.do">javaListView</prop>
+				<prop key="/clientext/nexadmin/cacheMonitoringRefresh.do">refresh</prop>
+				<prop key="/clientext/nexadmin/cacheMonitoringRefreshC.do">refreshC</prop>
+				<prop key="/clientext/nexadmin/cacheMonitoringRefreshJava.do">refreshJava</prop>
+				<prop key="/clientext/nexadmin/cacheMonitoringRefreshEachC.do">refreshEachC</prop>
+				<prop key="/clientext/nexadmin/cacheMonitoringRefreshEachJava.do">refreshEachJava</prop>
+				<prop key="/clientext/nexadmin/cacheMonitoringRefresh4ExternalCall.do">refresh</prop>
+				<prop key="/clientext/nexadmin/cacheMonitoringCheckJava.do">checkJava</prop>
+                <prop key="/clientext/nexadmin/cacheMonitoringCheckJavaExternalCall.do">checkJava</prop>
+				<prop key="/clientext/nexadmin/cacheMonitoringCheckC.do">checkC</prop>
+				<prop key="/clientext/nexadmin/cacheMonitoringCheckC4ExternalCall.do">checkC</prop>
+				<prop key="/clientext/nexadmin/cacheMonitoringBizCompInit.do">bizCompInit</prop>
+				<prop key="/clientext/nexadmin/salesDateCheckAll.do">salesDateCheckAll</prop>
+			</props>
+		</property>
+	</bean>	
+	
+	<bean id="nexadminCCacheMonitoringController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminCacheMonitoringController" parent="baseController">
+		<description>C-Cache 용 Controller 분리. (별도권한 부여를 위함)</description>
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/cacheMonitoringCList.do}"/>
+		
+		<property name="nexadminCServerManagingService" ref="nexadminCServerManagingService"/>
+		<property name="nexadminCacheHistoryService" ref="nexadminCacheHistoryService"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminCacheMonitoringControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	
+	<bean id="nexadminJavaCacheMonitoringController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminCacheMonitoringController" parent="baseController">
+		<description>Java-Cache 용 Controller 분리. (별도권한 부여를 위함)</description>
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/cacheMonitoringJavaList.do}"/>
+		
+		<property name="nexadminServerManagingService" ref="nexadminServerManagingService"/>
+		<property name="nexadminCacheHistoryService" ref="nexadminCacheHistoryService"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminCacheMonitoringControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	
+	<bean id="nexadminMetadataController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminMetadataController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/nexadminMetadataController.do}"/>
+		<property name="metadataMonitor" ref="metadataMonitor"/>
+		<property name="nexadminServerManagingService" ref="nexadminServerManagingService"/>
+		<property name="nexadminCServerManagingService" ref="nexadminCServerManagingService"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminMetadataControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="nexadminMetadataControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/monitorTargetDirectory.do">monitorTargetDirectory</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- TCP MONITORING -->
+	<!-- 
+	<bean id="nexadminTcpMonitoringController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminTcpMonitoringController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/tcpMonitoringList.do}"/>
+		
+		<property name="nexadminWasInstanceService" ref="nexadminWasInstanceService"/>
+		<property name="nexadminManagedMbeanService" ref="nexadminManagedMbeanService"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminTcpMonitoringControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="nexadminTcpMonitoringControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/tcpMonitoringList.do">listView</prop>
+			</props>
+		</property>
+	</bean>
+	 -->
+
+	<!-- TIMED RESOURCE WATCHER MONITORING -->
+	<!-- 
+	<bean id="nexadminTimedResourceWatcherMonitoringController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminTimedResourceWatcherMonitoringController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/timedResourceWatcherMonitoringList.do}"/>
+		
+		<property name="nexadminWasInstanceService" ref="nexadminWasInstanceService"/>
+		<property name="nexadminManagedMbeanService" ref="nexadminManagedMbeanService"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminTimedResourceWatcherMonitoringControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="nexadminTimedResourceWatcherMonitoringControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/timedResourceWatcherMonitoringList.do">listView</prop>
+			</props>
+		</property>
+	</bean>
+	 -->
+
+	<!-- COMPONENT MONITORING -->
+	<!-- 
+	<bean id="nexadminComponentMonitoringController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminComponentMonitoringController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/componentMonitoringList.do}"/>
+		
+		<property name="nexadminWasInstanceService" ref="nexadminWasInstanceService"/>
+		<property name="nexadminManagedMbeanService" ref="nexadminManagedMbeanService"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminComponentMonitoringControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="nexadminComponentMonitoringControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/componentMonitoringList.do">listView</prop>
+				<prop key="/clientext/nexadmin/componentMonitoringDetailNodeco.do">detailView</prop>                
+			</props>
+		</property>
+	</bean>
+	 -->
+
+	<!-- IO LAYOUT MONITORING -->
+	<!-- 
+	<bean id="nexadminIoLayoutMonitoringController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminIoLayoutMonitoringController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/ioLayoutMonitoringList.do}"/>
+		
+		<property name="nexadminWasInstanceService" ref="nexadminWasInstanceService"/>
+		<property name="nexadminManagedMbeanService" ref="nexadminManagedMbeanService"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminIoLayoutMonitoringControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="nexadminIoLayoutMonitoringControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/ioLayoutMonitoringList.do">listView</prop>
+				<prop key="/clientext/nexadmin/ioLayoutMonitoringDetailNodeco.do">detailView</prop>                
+			</props>
+		</property>
+	</bean>
+	 -->
+
+	<!-- SQL MANAGER MONITORING -->
+	<!-- 
+	<bean id="nexadminSqlManagerMonitoringController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminSqlManagerMonitoringController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/sqlManagerMonitoringList.do}"/>
+		
+		<property name="nexadminWasInstanceService" ref="nexadminWasInstanceService"/>
+		<property name="nexadminManagedMbeanService" ref="nexadminManagedMbeanService"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminSqlManagerMonitoringControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="nexadminSqlManagerMonitoringControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/sqlManagerMonitoringList.do">listView</prop>
+			</props>
+		</property>
+	</bean>
+	 -->
+
+	<!-- THREAD MANAGER MONITORING -->
+	<!-- 
+	<bean id="nexadminThreadManagerMonitoringController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminThreadManagerMonitoringController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/threadManagerMonitoringList.do}"/>
+		
+		<property name="nexadminWasInstanceService" ref="nexadminWasInstanceService"/>
+		<property name="nexadminManagedMbeanService" ref="nexadminManagedMbeanService"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminThreadManagerMonitoringControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="nexadminThreadManagerMonitoringControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/threadManagerMonitoringList.do">listView</prop>
+				<prop key="/clientext/nexadmin/threadManagerMonitoringKill.do">kill</prop>
+			</props>
+		</property>
+	</bean>
+	 -->
+
+	<!-- TRANSACTION LOG ITEM -->
+	<!-- 
+	<bean id="nexadminTransactionLogItemController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminTransactionLogItemController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/transactionLogItemList.do}"/>
+		
+		<property name="nexadminTransactionLogItemService" ref="nexadminTransactionLogItemService"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminTransactionLogItemControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="nexadminTransactionLogItemControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/transactionLogItemList.do">listView</prop>
+				<prop key="/clientext/nexadmin/transactionLogItemInsertView.do">insertView</prop>
+				<prop key="/clientext/nexadmin/transactionLogItemUpdateView.do">updateView</prop>
+				<prop key="/clientext/nexadmin/transactionLogItemDuplicateCheck.do">duplicateCheck</prop>
+				<prop key="/clientext/nexadmin/transactionLogItemInsert.do">insert</prop>
+				<prop key="/clientext/nexadmin/transactionLogItemUpdate.do">update</prop>
+				<prop key="/clientext/nexadmin/transactionLogItemDelete.do">delete</prop>
+				<prop key="/clientext/nexadmin/transactionLogItemUpdateUsed.do">updateUsed</prop>
+			</props>
+		</property>
+	</bean>
+	 -->
+
+	<!-- MONITORING MBEAN -->
+	<!-- 
+	<bean id="nexadminMbeanController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminMbeanController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/mbeanList.do}"/>
+		
+		<property name="nexadminMbeanService" ref="nexadminMbeanService"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminMbeanControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="nexadminMbeanControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/mbeanList.do">listView</prop>
+				<prop key="/clientext/nexadmin/mbeanInsertView.do">insertView</prop>
+				<prop key="/clientext/nexadmin/mbeanUpdateView.do">updateView</prop>
+				<prop key="/clientext/nexadmin/mbeanDuplicateCheck.do">duplicateCheck</prop>
+				<prop key="/clientext/nexadmin/mbeanInsert.do">insert</prop>
+				<prop key="/clientext/nexadmin/mbeanUpdate.do">update</prop>
+				<prop key="/clientext/nexadmin/mbeanDelete.do">delete</prop>
+			</props>
+		</property>
+	</bean>
+	 -->
+	
+	<!-- MONITORING MBEAN RUN -->
+	<!-- 
+	<bean id="nexadminMbeanRunController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminMbeanRunController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/mbeanRunList.do}"/>
+		
+		<property name="nexadminMbeanRunService" ref="nexadminMbeanRunService"/>
+		<property name="nexadminWasInstanceService" ref="nexadminWasInstanceService"/>
+		<property name="nexadminMbeanService" ref="nexadminMbeanService"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminMbeanRunControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="nexadminMbeanRunControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/mbeanRunList.do">listView</prop>
+			</props>
+		</property>
+	</bean>
+	 -->
+	
+	<bean id="nexadminLogLevelByUserController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminLogLevelByUserController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/logLevelByUserList.do}"/>
+		<property name="nexadminLogLevelByUserService" ref="nexadminLogLevelByUserService"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminLogLevelByUserControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="nexadminLogLevelByUserControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/logLevelByUserList.do">listView</prop>
+				<prop key="/clientext/nexadmin/logLevelByUserInsertView.do">insertView</prop>
+				<prop key="/clientext/nexadmin/logLevelByUserDuplicateCheck.do">duplicateCheck</prop>
+				<prop key="/clientext/nexadmin/logLevelByUserInsert.do">insert</prop>
+				<prop key="/clientext/nexadmin/logLevelByUserDelete.do">delete</prop>
+				<prop key="/clientext/nexadmin/logLevelByUserUpdate.do">update</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="nexadminLogLevelByTRController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminLogLevelByTRController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/logLevelByTRList.do}"/>
+		<property name="nexadminLogLevelByTRService" ref="nexadminLogLevelByTRService"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminLogLevelByTRControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	<bean id="nexadminLogLevelByTRControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/logLevelByTRList.do">listView</prop>
+				<!--prop key="/clientext/nexadmin/logLevelByTRInsertView.do">insertView</prop -->
+				<prop key="/clientext/nexadmin/logLevelByTRDuplicateCheck.do">duplicateCheck</prop>
+				<!-- prop key="/clientext/nexadmin/logLevelByTRInsert.do">insert</prop -->
+				<!-- prop key="/clientext/nexadmin/logLevelByTRDelete.do">delete</prop -->
+				<prop key="/clientext/nexadmin/logLevelByTRUpdate.do">update</prop>
+				<prop key="/clientext/nexadmin/trLogLevelHistoryList.do">listTrLogLevelHistoryView</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="nexadminServerStatusController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminServerStatusController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/serverStatusList.do}"/>
+		<property name="nexadminServerManagingService" ref="nexadminServerManagingService"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminServerStatusControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	
+	<bean id="nexadminServerStatusControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/serverStatusList.do">listView</prop>
+				<prop key="/clientext/nexadmin/serverStatusRefresh.do">refresh</prop>
+				<prop key="/clientext/nexadmin/serverUpdate.do">update</prop>
+                <prop key="/clientext/nexadmin/serverStatusRefreshExternal.do">refreshExternal</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="nexadminLogLevelController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminLogLevelController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/logLevelList.do}"/>
+		<property name="nexadminLogLevelService" ref="nexadminLogLevelService"/>
+		<property name="nexadminServerManagingService" ref="nexadminServerManagingService"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminLogLevelControllerMethodNameResolver"/>
+		</property>
+	</bean>
+	
+	<bean id="nexadminLogLevelControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/logLevelList.do">listView</prop>
+				<prop key="/clientext/nexadmin/logLevelUpdate.do">update</prop>
+				<prop key="/clientext/nexadmin/logLevelReset.do">reset</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="nexadminServiceIoController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminServiceIoController" parent="baseController">
+		<property name="authorityFunctionId" value="${/clientext/nexadmin/serviceIoServerList.do}"/>
+		<property name="nexadminServiceIoService" ref="nexadminServiceIoService"/>
+		<property name="nexadminServerManagingService" ref="nexadminServerManagingService"/>
+		<property name="methodNameResolver">
+			<ref local="nexadminServiceIoControllerMethodNameResolver"/>
+		</property>
+	</bean>
+
+	<bean id="nexadminServiceIoControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/clientext/nexadmin/serviceIoServerList.do">listView</prop>
+				<prop key="/clientext/frame/serviceIoComponentTree.do">getServerTree</prop>
+				<prop key="/clientext/frame/serviceIoTransactionView.do">getMethodIo</prop>
+			</props>
+		</property>
+	</bean>
+    
+    <!-- RESOURCE : SKFZ_TRANSACTION_HISTORY -->
+    <bean id="nexadminTransactionHistoryController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminTransactionHistoryController" parent="baseController">
+        <property name="authorityFunctionId" value="${/clientext/nexadmin/transactionHistoryList.do}"/>
+        
+        <property name="nexadminTransactionHistoryService" ref="nexadminTransactionHistoryService"/>
+        <property name="methodNameResolver">
+            <ref local="nexadminTransactionHistoryControllerMethodNameResolver"/>
+        </property>
+    </bean>
+    <bean id="nexadminTransactionHistoryControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+        <property name="mappings">
+            <props>
+                <prop key="/clientext/nexadmin/transactionHistoryList.do">listView</prop>
+            </props>
+        </property>
+    </bean>
+    
+    <!-- RESOURCE : SKFZ_CACHE_HISTORY -->
+    <bean id="nexadminCacheRefreshHistoryController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminCacheRefreshHistoryController" parent="baseController">
+        <property name="authorityFunctionId" value="${/clientext/nexadmin/cacheRefreshHistoryList.do}"/>
+        
+        <property name="nexadminCacheHistoryService" ref="nexadminCacheHistoryService"/>
+        <property name="methodNameResolver">
+            <ref local="nexadminCacheRefreshHistoryControllerMethodNameResolver"/>
+        </property>
+    </bean>
+    <bean id="nexadminCacheRefreshHistoryControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+        <property name="mappings">
+            <props>
+                <prop key="/clientext/nexadmin/cacheRefreshHistoryList.do">listView</prop>
+            </props>
+        </property>
+    </bean>
+    
+    <!--  RESOURCE : SKFZ_CALL_INFO -->
+    <bean id="nexadminServerController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminServerController" parent="baseController">
+        <property name="authorityFunctionId" value="${/clientext/nexadmin/serverList.do}"/>
+        
+        <property name="nexadminServerService" ref="nexadminServerService"/>
+        <property name="methodNameResolver">
+            <ref local="nexadminServerControllerMethodNameResolver"/>
+        </property>
+    </bean>
+    <bean id="nexadminServerControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+        <property name="mappings">
+            <props>
+                <prop key="/clientext/nexadmin/serverList.do">listView</prop>
+                <prop key="/clientext/nexadmin/serverInsertView.do">insertView</prop>
+                <prop key="/clientext/nexadmin/serverInsert.do">insert</prop>
+                <prop key="/clientext/nexadmin/serverDelete.do">delete</prop>
+            </props>
+        </property>
+    </bean>
+    
+    <bean id="nexadminBizGroupController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminBizGroupController" parent="baseController">
+        <property name="authorityFunctionId" value="${/clientext/nexadmin/bizGroupList.do}"/>
+        <property name="nexadminBizGroupService" ref="nexadminBizGroupService"/>
+        <property name="methodNameResolver">
+            <ref local="nexadminBizGroupControllerMethodNameResolver"/>
+        </property>
+    </bean>
+    <bean id="nexadminBizGroupControllerMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+        <property name="mappings">
+            <props>
+                <prop key="/clientext/nexadmin/bizGroupList.do">listView</prop>
+                <prop key="/clientext/nexadmin/bizGroupInsertView.do">insertView</prop>
+                <prop key="/clientext/nexadmin/bizGroupUpdateView.do">updateView</prop>
+                <prop key="/clientext/nexadmin/bizGroupDelete.do">delete</prop>
+                <prop key="/clientext/nexadmin/bizGroupInsert.do">insert</prop>
+                <prop key="/clientext/nexadmin/bizGroupUpdate.do">update</prop>
+                <prop key="/clientext/nexadmin/bizGroupDuplicateCheck.do">duplicateCheck</prop>
+            </props>
+        </property>
+    </bean>
+    
+    <bean id="nexadminSalesDateCheckController" class="skcc.nexcore.clientext.nexadmin.controller.NexadminSalesDateCheckController" parent="baseController">
+    	<property name="authorityFunctionId" value="${/clientext/nexadmin/salesDateCheckAll.do}"/>
+    	<property name="nexadminServerManagingService" ref="nexadminServerManagingService"/>
+    	<property name="methodNameResolver">
+            <ref local="nexadminSalesDateCheckResolver"/>
+        </property>
+    </bean>
+	<bean id="nexadminSalesDateCheckResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+        <property name="mappings">
+            <props>
+                <prop key="/clientext/nexadmin/salesDateCheckAll.do">salesDateCheckAll</prop>
+            </props>
+        </property>
+    </bean>
+</beans>

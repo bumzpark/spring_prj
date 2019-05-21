@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xmlns:aop="http://www.springframework.org/schema/aop"
+     xmlns:tx="http://www.springframework.org/schema/tx"
+     xsi:schemaLocation="
+     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+	
+	<bean id="systemCheckHandlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="order"><value>0</value></property>
+		<property name="interceptors">
+			<list>
+				<ref bean="authCheckInterceptor"/>
+			</list>
+		</property>
+		<property name="mappings">
+			<props>
+				<prop key="/system/common/duplicateCheck.do">staticViewController</prop>
+				<prop key="/system/common/availableCheck.do">staticViewController</prop>
+				<prop key="/system/common/validationCheck.do">staticViewController</prop>
+				<prop key="/system/common/pageNavigation.do">staticViewController</prop>
+				
+				<prop key="/system/error/error404.do">staticViewController</prop>
+				<prop key="/system/error/error500.do">staticViewController</prop>
+				<prop key="/system/error/errorRole.do">staticViewController</prop>
+				<prop key="/system/error/errorView.do">staticViewController</prop>
+				<prop key="/system/error/errorDomain.do">staticViewController</prop>
+
+				<prop key="/index.do">staticViewController</prop>
+				<prop key="/system/sessionout.do">staticViewController</prop>
+
+				<prop key="/system/index.do">loginController</prop>
+				<prop key="/system/login.do">loginController</prop>
+				<prop key="/system/logout.do">loginController</prop>
+				<prop key="/system/main.do">loginController</prop>
+				<prop key="/system/home.do">loginController</prop>
+				<prop key="/system/sitemap.do">loginController</prop>
+
+				<prop key="/system/decorators/main.do">commonController</prop>
+				<prop key="/system/decorators/menu.do">commonController</prop>
+				<prop key="/system/decorators/bottom.do">commonController</prop>
+				<prop key="/system/decorators/pageTitle.do">commonController</prop>
+				<prop key="/system/common/navigate.do">commonController</prop>
+				<prop key="/system/common/navigateView.do">commonController</prop>
+				<prop key="/system/common/changeLocale.do">commonController</prop>
+				
+				<prop key="/system/admin/userList.do">userController</prop>
+				<prop key="/system/admin/userInsertView.do">userController</prop>
+				<prop key="/system/admin/userUpdateView.do">userController</prop>
+				<prop key="/system/admin/userDuplicateCheck.do">userController</prop>
+				<prop key="/system/admin/userInsert.do">userController</prop>
+				<prop key="/system/admin/userUpdate.do">userController</prop>
+				<prop key="/system/admin/userUpdateStatus.do">userController</prop>
+				<prop key="/system/admin/userDelete.do">userController</prop>
+				<prop key="/system/admin/userPasswordReset.do">userController</prop>
+				<prop key="/system/admin/userExcel.do">userController</prop>
+				<prop key="/system/admin/userPdf.do">userController</prop>
+
+				<prop key="/system/admin/menuList.do">menuController</prop>
+				<prop key="/system/admin/menuInsertView.do">menuController</prop>
+				<prop key="/system/admin/menuUpdateView.do">menuController</prop>
+				<prop key="/system/admin/menuDuplicateCheck.do">menuController</prop>
+				<prop key="/system/admin/menuInsert.do">menuController</prop>
+				<prop key="/system/admin/menuUpdate.do">menuController</prop>
+				<prop key="/system/admin/menuUpdateOrderNo.do">menuController</prop>
+				<prop key="/system/admin/menuDelete.do">menuController</prop>
+
+				<prop key="/system/admin/groupList.do">groupController</prop>
+				<prop key="/system/admin/groupInsertView.do">groupController</prop>
+				<prop key="/system/admin/groupUpdateView.do">groupController</prop>
+				<prop key="/system/admin/groupDuplicateCheck.do">groupController</prop>
+				<prop key="/system/admin/groupInsert.do">groupController</prop>
+				<prop key="/system/admin/groupUpdate.do">groupController</prop>
+				<prop key="/system/admin/groupDelete.do">groupController</prop>
+				<prop key="/system/admin/groupMenuMappingView.do">groupController</prop>
+				<prop key="/system/admin/groupMenuMapping.do">groupController</prop>
+
+				<prop key="/system/admin/loginHistory.do">loginHistoryController</prop>
+				<prop key="/system/admin/loginHistoryDelete.do">loginHistoryController</prop>
+				
+				<prop key="/system/admin/actionHistory.do">actionHistoryController</prop>
+				<prop key="/system/admin/actionHistoryByUser.do">actionHistoryController</prop>
+				<prop key="/system/admin/actionHistoryDelete.do">actionHistoryController</prop>
+
+				<prop key="/system/admin/myInfoView.do">myController</prop>
+				<prop key="/system/admin/myInfoUpdate.do">myController</prop>
+				<prop key="/system/admin/myPasswordUpdate.do">myController</prop>
+				
+				<prop key="/system/admin/databaseList.do">databaseController</prop>
+				<prop key="/system/admin/databaseExportView.do">databaseController</prop>
+				<prop key="/system/admin/databaseExport.do">databaseController</prop>
+<!-- 
+				<prop key="/system/admin/scheduleList.do">scheduleController</prop>
+				<prop key="/system/admin/scheduleInsertView.do">scheduleController</prop>
+				<prop key="/system/admin/scheduleUpdateView.do">scheduleController</prop>
+				<prop key="/system/admin/scheduleDuplicateCheck.do">scheduleController</prop>
+				<prop key="/system/admin/scheduleInsert.do">scheduleController</prop>
+				<prop key="/system/admin/scheduleUpdate.do">scheduleController</prop>
+				<prop key="/system/admin/scheduleDelete.do">scheduleController</prop>
+ -->
+
+			</props>
+		</property>
+	</bean>
+
+</beans>

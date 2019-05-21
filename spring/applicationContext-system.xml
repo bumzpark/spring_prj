@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xmlns:aop="http://www.springframework.org/schema/aop"
+     xmlns:tx="http://www.springframework.org/schema/tx"
+     xsi:schemaLocation="
+     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+	<bean id="userDAO" class="skcc.nexcore.client.applicationext.dao.UserDAO" parent="baseDAO" />
+	<bean id="menuDAO" class="skcc.nexcore.client.applicationext.dao.MenuDAO" parent="baseDAO" />
+	<bean id="menuLocaleDAO" class="skcc.nexcore.client.applicationext.dao.MenuLocaleDAO" parent="baseDAO" />
+	<bean id="groupDAO" class="skcc.nexcore.client.applicationext.dao.GroupDAO" parent="baseDAO" />
+	<bean id="groupLocaleDAO" class="skcc.nexcore.client.applicationext.dao.GroupLocaleDAO" parent="baseDAO" />
+	<bean id="menuGroupMapDAO" class="skcc.nexcore.client.applicationext.dao.MenuGroupMapDAO" parent="baseDAO" />
+	<bean id="loginHistoryDAO" class="skcc.nexcore.client.applicationext.dao.LoginHistoryDAO" parent="baseDAO" />
+	<bean id="actionHistoryDAO" class="skcc.nexcore.client.applicationext.dao.ActionHistoryDAO" parent="baseDAO" />
+	<bean id="clobDAO" class="skcc.nexcore.client.applicationext.dao.ClobDAO" parent="baseDAO">
+		<property name="valueLength" value="${SKFA_SYS_CLOB.CLOB_VALUE.LENGTH}"/>
+	</bean>
+	<!-- 
+	<bean id="scheduleDAO" class="skcc.nexcore.client.applicationext.dao.ScheduleDAO" parent="baseDAO" />
+	 -->
+
+	<bean id="userService" class="skcc.nexcore.client.applicationext.service.UserService">
+		<property name="userDAO" ref="userDAO"/>
+	</bean>
+
+	<bean id="loginHistoryService" class="skcc.nexcore.client.applicationext.service.LoginHistoryService">
+		<property name="loginHistoryDAO" ref="loginHistoryDAO"/>
+	</bean>
+
+	<bean id="actionHistoryService" class="skcc.nexcore.client.applicationext.service.ActionHistoryService">
+		<property name="actionHistoryDAO" ref="actionHistoryDAO"/>
+	</bean>
+
+	<bean id="menuService" class="skcc.nexcore.client.applicationext.service.MenuService">
+		<property name="menuDAO" ref="menuDAO"/>
+	</bean>
+
+	<bean id="menuLocaleService" class="skcc.nexcore.client.applicationext.service.MenuLocaleService">
+		<property name="menuLocaleDAO" ref="menuLocaleDAO"/>
+	</bean>
+	
+	<bean id="groupService" class="skcc.nexcore.client.applicationext.service.GroupService">
+		<property name="groupDAO" ref="groupDAO"/>
+		<property name="menuGroupMapDAO" ref="menuGroupMapDAO"/>
+	</bean>
+	
+	<bean id="groupLocaleService" class="skcc.nexcore.client.applicationext.service.GroupLocaleService">
+		<property name="groupLocaleDAO" ref="groupLocaleDAO"/>
+	</bean>
+
+	<!-- 
+	<bean id="scheduleService" class="skcc.nexcore.client.applicationext.service.ScheduleService">
+		<property name="scheduleDAO" ref="scheduleDAO"/>
+	</bean>
+	
+	<bean id="scheduleJobManager" class="skcc.nexcore.client.foundation.scheduling.ScheduleJobManager" init-method="init" destroy-method="destroy">
+		<property name="waitForJobsToComplete" value="false"/>
+	</bean>
+
+	<bean id="scheduleJobInitializer" class="skcc.nexcore.client.applicationext.schedule.ScheduleJobInitializer" init-method="init" destroy-method="destroy" depends-on="scheduleJobManager">
+		<property name="scheduleJobManager" ref="scheduleJobManager"/>
+		<property name="scheduleService" ref="scheduleService"/>
+	</bean>
+	 -->
+
+</beans>

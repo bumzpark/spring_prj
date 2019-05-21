@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+
+	<!--  Data Source bean definiton 
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="jdbc/NexcoreDS" />
+		<property name="jndiEnvironment">
+			<props>
+				<prop key="java.naming.factory.initial">org.jnp.interfaces.NamingContextFactory
+				</prop>
+				<prop key="java.naming.factory.url.pkgs">org.jboss.naming:org.jnp.interfaces
+				</prop>
+				<prop key="java.naming.provider.url">jnp://localhost:11099</prop>
+			</props>
+		</property>
+	</bean>
+	-->
+	<!-- DAO Definition -->
+	<bean id="metaBaseDAO" class="skcc.nexcore.clientext.nexadmin.meta.dao.BaseDAO">
+		<property name="dataSource" ref="ds-nexadmin" />
+	</bean>
+
+	<bean id="skfBizUnitDAO" class="skcc.nexcore.clientext.nexadmin.meta.dao.SKFBizUnitDAO"
+		parent="metaBaseDAO" />
+
+	<bean id="skfMethodDAO" class="skcc.nexcore.clientext.nexadmin.meta.dao.SKFMethodDAO"
+		parent="metaBaseDAO" />
+
+	<bean id="skfOnlineComponentDAO" class="skcc.nexcore.clientext.nexadmin.meta.dao.SKFOnlineComponentDAO"
+		parent="metaBaseDAO" />
+
+	<bean id="skfzTransactionDAO" class="skcc.nexcore.clientext.nexadmin.meta.dao.SKFZTransactionDAO"
+		parent="metaBaseDAO" />
+		
+	<bean id="errorListMonitorDAO" class="skcc.nexcore.clientext.nexadmin.monitor.dao.ErrorListMonitorDAO">
+		<property name="dataSource" ref="ds-info-bi" />
+	</bean>
+
+
+	<bean id="componentDataProcessor" class="skcc.nexcore.clientext.nexadmin.meta.scheduler.ComponentDataProcessor">
+		<!-- online component DAO -->
+		<property name="onlineComponentDAO" ref="skfOnlineComponentDAO" />
+	</bean>
+	
+	<!--  Compressed file processor -->
+	<bean id="compressedFileProcessor" class="skcc.nexcore.clientext.nexadmin.meta.scheduler.CompressedFileProcessor">
+		<!--  Tar extract command -->
+		<property name="extractCommand" value="c:/temp/out.bat" />
+	</bean>
+
+	<bean id="methodDataProcessor" class="skcc.nexcore.clientext.nexadmin.meta.scheduler.MethodDataProcessor">
+		<!--  bizUnitDAO DAO -->
+		<property name="bizUnitDAO" ref="skfBizUnitDAO" />
+		<!--  methodDAO DAO -->
+		<property name="methodDAO" ref="skfMethodDAO" />
+		<!--  transactionDAO DAO -->
+		<property name="transactionDAO" ref="skfzTransactionDAO" />
+	</bean>
+	
+	<bean id="trAllProcessor" class="skcc.nexcore.clientext.nexadmin.meta.scheduler.TRAllProcessor">
+		<!-- online component DAO -->
+		<property name="onlineComponentDAO" ref="skfOnlineComponentDAO" />
+		<!--  bizUnitDAO DAO -->
+		<property name="bizUnitDAO" ref="skfBizUnitDAO" />
+		<!--  methodDAO DAO -->
+		<property name="methodDAO" ref="skfMethodDAO" />
+		<!--  transactionDAO DAO -->
+		<property name="transactionDAO" ref="skfzTransactionDAO" />
+	</bean>
+
+	<!--  Define Schedule work -->
+	<bean id="metadataMonitor" class="skcc.nexcore.clientext.nexadmin.meta.scheduler.MetaDataMonitor">		
+		<!-- monitoring target directory -->
+		<property name="monitoringDirectory" value="c:/temp/meta" />
+		<!-- backup directory -->
+		<property name="backupDirectory" value="c:/temp/backup" />		
+		<!-- componentDataProcessor -->
+		<property name="componentDataProcessor" ref="componentDataProcessor" />
+		<!-- methodDataProcessor -->
+		<property name="methodDataProcessor" ref="methodDataProcessor" />
+		<!-- trAllProcessor -->
+		<property name="trAllProcessor" ref="trAllProcessor" />
+		<!-- compressedFileProcessor -->
+		<property name="compressedFileProcessor" ref="compressedFileProcessor" />
+	</bean>
+
+
+	<!-- Call Detail -->
+	<bean id="methodInvokingJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="metadataMonitor" />
+		</property>
+		<property name="targetMethod">
+			<value>monitorTargetDirectory</value>
+		</property>
+		<!-- disable overlapped processing -->
+		<property name="concurrent">
+			<value>false</value>
+		</property>
+	</bean>
+
+
+	<!--  Cron like Scheduler setting 
+	<bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="methodInvokingJobDetail" />
+		</property>
+		<property name="cronExpression">			
+			<value>0/5 */1 * * * ?</value>
+		</property>
+	</bean>
+	
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref local="cronTrigger" />
+			</list>
+		</property>
+	</bean>
+	 -->
+	 
+	<!--  Define Schedule work -->
+	<bean id="errorListMonitor" class="skcc.nexcore.clientext.nexadmin.monitor.ErrorListMonitor">		
+		<!-- wordDelimeter -->
+		<property name="delimeter" value="|" />
+		<!-- DAO -->
+		<property name="errorListMonitorDAO" ref="errorListMonitorDAO" />
+		<!-- OCCR_CNT -->
+		<property name="baseCnt" value="10" />
+		<!-- LOG File -->
+		<property name="logFile" value="/SWROOT/nexcorej/nexcore/log/fferr.log" />
+		<!-- Messenger list -->
+		<property name="messengerList" value="02100274,02108419" />
+	</bean>
+
+	<!-- Call Detail -->
+	<bean id="errorListMonitormethodInvokingJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">		
+		<property name="targetObject">
+			<ref bean="errorListMonitor" />
+		</property>
+		<property name="targetMethod">
+			<value>monitorErrorList</value>
+		</property>
+		<!-- disable overlapped processing -->
+		<property name="concurrent">
+			<value>false</value>
+		</property>
+	</bean>
+
+
+	<!-- Simple Scheduler setting --> 
+	<bean id="errorListCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="errorListMonitormethodInvokingJobDetail" />
+		</property>
+		<property name="cronExpression">
+			<!-- 초 분 시간 일(Day of Month) 월 요일(Day of Week, 1-7 : SUN-SAT) 년도(생략가능) -->
+			<value>0 0/1 * * * ?</value>
+		</property>
+	</bean>
+	
+	<!--  Define Schedule work -->
+	<bean id="diaryMessageSender" class="skcc.nexcore.clientext.nexadmin.monitor.DiaryMessageSender">		
+		<!-- Messenger list -->
+		<property name="messengerList" value="02100268,02860808,02001386,02101179,02100274,02099300,02002804,02101152,02100509,02108419,02105217,02106103" />
+	</bean>
+
+
+	<!-- Call Detail -->
+	<bean id="diaryMessageSendermethodInvokingJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="diaryMessageSender" />
+		</property>
+		<property name="targetMethod">
+			<value>sendDiaryMessage</value>
+		</property>
+		<!-- disable overlapped processing -->
+		<property name="concurrent">
+			<value>false</value>
+		</property>
+	</bean>
+	
+	<!-- Cron like Scheduler setting -->
+	<bean id="diaryMessageSenderCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="diaryMessageSendermethodInvokingJobDetail" />
+		</property>
+		<property name="cronExpression">
+			<!-- 초 분 시간 일(Day of Month) 월 요일(Day of Week, 1-7 : SUN-SAT) 년도(생략가능) -->
+			<value>0 5,15 18 ? * MON-FRI</value>
+		</property>
+	</bean>
+	
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref local="errorListCronTrigger" />
+				<ref local="diaryMessageSenderCronTrigger" />
+			</list>
+		</property>
+	</bean>
+
+</beans>

@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xmlns:aop="http://www.springframework.org/schema/aop"
+     xmlns:tx="http://www.springframework.org/schema/tx"
+     xsi:schemaLocation="
+     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+	<bean id="nexadminCheckHandlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="order"><value>0</value></property>
+		<property name="interceptors">
+			<list>
+				<ref bean="authCheckInterceptor"/>
+			</list>
+		</property>
+		<property name="mappings">
+			<props>
+				<!-- MBean 기반 서버 제어 기능  (폐기)
+				<prop key="/clientext/nexadmin/configuration.do">nexadminConfigurationController</prop>
+				<prop key="/clientext/nexadmin/configurationUpdate.do">nexadminConfigurationController</prop>
+				 -->
+
+				<!-- 개별 거래제어 (폐기)
+				<prop key="/clientext/nexadmin/txcontrolList.do">nexadminTxControlController</prop>
+				<prop key="/clientext/nexadmin/txcontrolInsertView.do">nexadminTxControlController</prop>
+				<prop key="/clientext/nexadmin/txcontrolUpdateView.do">nexadminTxControlController</prop>
+				<prop key="/clientext/nexadmin/txcontrolDuplicateCheck.do">nexadminTxControlController</prop>
+				<prop key="/clientext/nexadmin/txcontrolInsert.do">nexadminTxControlController</prop>
+				<prop key="/clientext/nexadmin/txcontrolUpdate.do">nexadminTxControlController</prop>
+				<prop key="/clientext/nexadmin/txcontrolDelete.do">nexadminTxControlController</prop>
+				<prop key="/clientext/nexadmin/txcontrolSubmitWAS.do">nexadminTxControlController</prop>
+				 -->
+
+				<!-- 패턴식 거래통제 (폐기)
+				<prop key="/clientext/nexadmin/txcontrolExpressionList.do">nexadminTxControlExpressionController</prop>
+				<prop key="/clientext/nexadmin/txcontrolExpressionInsertView.do">nexadminTxControlExpressionController</prop>
+				<prop key="/clientext/nexadmin/txcontrolExpressionUpdateView.do">nexadminTxControlExpressionController</prop>
+				<prop key="/clientext/nexadmin/txcontrolExpressionDuplicateCheck.do">nexadminTxControlExpressionController</prop>
+				<prop key="/clientext/nexadmin/txcontrolExpressionInsert.do">nexadminTxControlExpressionController</prop>
+				<prop key="/clientext/nexadmin/txcontrolExpressionUpdate.do">nexadminTxControlExpressionController</prop>
+				<prop key="/clientext/nexadmin/txcontrolExpressionDelete.do">nexadminTxControlExpressionController</prop>
+				<prop key="/clientext/nexadmin/txcontrolExpressionSubmitWAS.do">nexadminTxControlExpressionController</prop>
+				 -->
+
+				<!-- 업무 추가 (기존의 WAS 인스턴스 관리) -->
+				<prop key="/clientext/nexadmin/wasInstanceList.do">nexadminWasInstanceController</prop>
+				<prop key="/clientext/nexadmin/wasInstanceInsertView.do">nexadminWasInstanceController</prop>
+				<prop key="/clientext/nexadmin/wasInstanceUpdateView.do">nexadminWasInstanceController</prop>
+				<prop key="/clientext/nexadmin/wasInstanceDuplicateCheck.do">nexadminWasInstanceController</prop>
+				<prop key="/clientext/nexadmin/wasInstanceInsert.do">nexadminWasInstanceController</prop>
+				<prop key="/clientext/nexadmin/wasInstanceUpdate.do">nexadminWasInstanceController</prop>
+				<prop key="/clientext/nexadmin/wasInstanceDelete.do">nexadminWasInstanceController</prop>
+				<!-- 
+				<prop key="/clientext/nexadmin/wasInstanceSubmitWAS.do">nexadminWasInstanceController</prop>
+				 -->
+
+				<!-- 서버 클러스터 관리 (폐기)
+				<prop key="/clientext/nexadmin/wasClusterList.do">nexadminWasClusterController</prop>
+				<prop key="/clientext/nexadmin/wasClusterAddView.do">nexadminWasClusterController</prop>
+				<prop key="/clientext/nexadmin/wasClusterModifyView.do">nexadminWasClusterController</prop>
+				<prop key="/clientext/nexadmin/wasClusterDuplicateCheck.do">nexadminWasClusterController</prop>
+				<prop key="/clientext/nexadmin/wasClusterAdd.do">nexadminWasClusterController</prop>
+				<prop key="/clientext/nexadmin/wasClusterModify.do">nexadminWasClusterController</prop>
+				<prop key="/clientext/nexadmin/wasClusterDelete.do">nexadminWasClusterController</prop>
+				-->
+
+				<!-- 코드그룹관리 (폐기)
+				<prop key="/clientext/nexadmin/codeGroupList.do">nexadminCodeGroupController</prop>
+				<prop key="/clientext/nexadmin/codeGroupInsertView.do">nexadminCodeGroupController</prop>
+				<prop key="/clientext/nexadmin/codeGroupUpdateView.do">nexadminCodeGroupController</prop>
+				<prop key="/clientext/nexadmin/codeGroupDuplicateCheck.do">nexadminCodeGroupController</prop>
+				<prop key="/clientext/nexadmin/codeGroupInsert.do">nexadminCodeGroupController</prop>
+				<prop key="/clientext/nexadmin/codeGroupUpdate.do">nexadminCodeGroupController</prop>
+				<prop key="/clientext/nexadmin/codeGroupDelete.do">nexadminCodeGroupController</prop>
+				 -->
+				 
+				<!-- 코드항목 관리 (폐기)
+				<prop key="/clientext/nexadmin/codeItemList.do">nexadminCodeItemController</prop>
+				<prop key="/clientext/nexadmin/codeItemInsertView.do">nexadminCodeItemController</prop>
+				<prop key="/clientext/nexadmin/codeItemUpdateView.do">nexadminCodeItemController</prop>
+				<prop key="/clientext/nexadmin/codeItemDuplicateCheck.do">nexadminCodeItemController</prop>
+				<prop key="/clientext/nexadmin/codeItemInsert.do">nexadminCodeItemController</prop>
+				<prop key="/clientext/nexadmin/codeItemUpdate.do">nexadminCodeItemController</prop>
+				<prop key="/clientext/nexadmin/codeItemDelete.do">nexadminCodeItemController</prop>
+				<prop key="/clientext/nexadmin/codeItemSubmitWAS.do">nexadminCodeItemController</prop>
+				 -->
+
+				<!-- 코드속성 관리 (폐기)
+				<prop key="/clientext/nexadmin/codeAttributeList.do">nexadminCodeAttributeController</prop>
+				<prop key="/clientext/nexadmin/codeAttributeInsertView.do">nexadminCodeAttributeController</prop>
+				<prop key="/clientext/nexadmin/codeAttributeUpdateView.do">nexadminCodeAttributeController</prop>
+				<prop key="/clientext/nexadmin/codeAttributeDuplicateCheck.do">nexadminCodeAttributeController</prop>
+				<prop key="/clientext/nexadmin/codeAttributeInsert.do">nexadminCodeAttributeController</prop>
+				<prop key="/clientext/nexadmin/codeAttributeUpdate.do">nexadminCodeAttributeController</prop>
+				<prop key="/clientext/nexadmin/codeAttributeDelete.do">nexadminCodeAttributeController</prop>
+				 -->
+
+				<!-- 기본메시지 (다른 것으로 대체하고 폐기)
+				<prop key="/clientext/nexadmin/messageList.do">nexadminMessageController</prop>
+				<prop key="/clientext/nexadmin/messageInsertView.do">nexadminMessageController</prop>
+				<prop key="/clientext/nexadmin/messageUpdateView.do">nexadminMessageController</prop>
+				<prop key="/clientext/nexadmin/messageDuplicateCheck.do">nexadminMessageController</prop>
+				<prop key="/clientext/nexadmin/messageInsert.do">nexadminMessageController</prop>
+				<prop key="/clientext/nexadmin/messageUpdate.do">nexadminMessageController</prop>
+				<prop key="/clientext/nexadmin/messageDelete.do">nexadminMessageController</prop>
+				<prop key="/clientext/nexadmin/messageSubmitWAS.do">nexadminMessageController</prop>
+				 -->
+
+				<!-- 부가메시지  (다른 것으로 대체하고 폐기)
+				<prop key="/clientext/nexadmin/additionalMessageList.do">nexadminAdditionalMessageController</prop>
+				-->
+				
+				<!-- 컴포넌트 정보  -->
+				<prop key="/clientext/nexadmin/componentList.do">nexadminComponentListController</prop>
+
+				<!-- 서비스 정보 -->
+				<prop key="/clientext/nexadmin/serviceList.do">nexadminServiceListController</prop>
+
+				<!-- AS거래제어/OS거래제어 -->
+				<prop key="/clientext/nexadmin/transactionListOfAs.do">nexadminTransactionController</prop>
+				<prop key="/clientext/nexadmin/transactionListOfOs.do">nexadminTransactionController</prop>
+				<prop key="/clientext/nexadmin/transactionUpdateViewOfAs.do">nexadminTransactionController</prop>
+				<prop key="/clientext/nexadmin/transactionUpdateViewOfOs.do">nexadminTransactionController</prop>
+				<prop key="/clientext/nexadmin/transactionUpdateOfAs.do">nexadminTransactionController</prop>
+				<prop key="/clientext/nexadmin/transactionUpdateOfOs.do">nexadminTransactionController</prop>
+				<prop key="/clientext/nexadmin/transactionDeleteOfAs.do">nexadminTransactionController</prop>
+				<prop key="/clientext/nexadmin/transactionDeleteOfOs.do">nexadminTransactionController</prop>
+				<prop key="/clientext/nexadmin/trBlockedHistoryList.do">nexadminTransactionController</prop>
+
+				<!-- 매체그룹  -->
+				<prop key="/clientext/nexadmin/mediaGroupList.do">nexadminMediaGroupController</prop>
+				<prop key="/clientext/nexadmin/mediaGroupInsertView.do">nexadminMediaGroupController</prop>
+				<prop key="/clientext/nexadmin/mediaGroupInsert.do">nexadminMediaGroupController</prop>
+				<prop key="/clientext/nexadmin/mediaGroupUpdateView.do">nexadminMediaGroupController</prop>
+				<prop key="/clientext/nexadmin/mediaGroupUpdate.do">nexadminMediaGroupController</prop>
+				<prop key="/clientext/nexadmin/mediaGroupDelete.do">nexadminMediaGroupController</prop>
+				<prop key="/clientext/nexadmin/mediaGroupMemberList.do">nexadminMediaGroupController</prop>
+				<prop key="/clientext/nexadmin/mediaGroupMemberInsertView.do">nexadminMediaGroupController</prop>
+				<prop key="/clientext/nexadmin/mediaGroupMemberInsert.do">nexadminMediaGroupController</prop>
+				<prop key="/clientext/nexadmin/mediaGroupMemberDelete.do">nexadminMediaGroupController</prop>
+
+				<!-- 기본메시지(BaseMsg) / 부가메시지(SplmMsg) -->
+				<prop key="/clientext/nexadmin/baseMsgList.do">nexadminBaseMsgController</prop>
+				<prop key="/clientext/nexadmin/splmMsgList.do">nexadminSplmMsgController</prop>
+				
+				<!-- 어플리케이션 컴포넌트 정보 (폐기)
+				<prop key="/clientext/nexadmin/onlineComponentList.do">nexadminOnlineComponentController</prop>                
+				<prop key="/clientext/nexadmin/onlineComponentStatistic.do">nexadminOnlineComponentController</prop>                
+				<prop key="/clientext/nexadmin/onlineComponentDetailNodeco.do">nexadminOnlineComponentController</prop>                
+				-->
+				
+				<!-- 어플리케이션 쿼리 정보 (폐기)
+				<prop key="/clientext/nexadmin/onlineSqlList.do">nexadminOnlineSqlController</prop>                
+				<prop key="/clientext/nexadmin/onlineSqlDetailNodeco.do">nexadminOnlineSqlController</prop>                
+				 -->
+
+				<!-- 
+				<prop key="/clientext/nexadmin/mbeanList.do">nexadminMbeanController</prop>
+				<prop key="/clientext/nexadmin/mbeanInsertView.do">nexadminMbeanController</prop>
+				<prop key="/clientext/nexadmin/mbeanUpdateView.do">nexadminMbeanController</prop>
+				<prop key="/clientext/nexadmin/mbeanDuplicateCheck.do">nexadminMbeanController</prop>
+				<prop key="/clientext/nexadmin/mbeanInsert.do">nexadminMbeanController</prop>
+				<prop key="/clientext/nexadmin/mbeanUpdate.do">nexadminMbeanController</prop>
+				<prop key="/clientext/nexadmin/mbeanDelete.do">nexadminMbeanController</prop>
+
+				<prop key="/clientext/nexadmin/mbeanRunList.do">nexadminMbeanRunController</prop>
+				 -->
+
+				<!-- 디퍼드 대상 관리 (폐기)
+				<prop key="/clientext/nexadmin/deferredTargetList.do">nexadminDeferredTargetController</prop>
+				<prop key="/clientext/nexadmin/deferredTargetInsertView.do">nexadminDeferredTargetController</prop>
+				<prop key="/clientext/nexadmin/deferredTargetUpdateView.do">nexadminDeferredTargetController</prop>
+				<prop key="/clientext/nexadmin/deferredTargetDuplicateCheck.do">nexadminDeferredTargetController</prop>
+				<prop key="/clientext/nexadmin/deferredTargetInsert.do">nexadminDeferredTargetController</prop>
+				<prop key="/clientext/nexadmin/deferredTargetUpdate.do">nexadminDeferredTargetController</prop>
+				<prop key="/clientext/nexadmin/deferredTargetDelete.do">nexadminDeferredTargetController</prop>
+				<prop key="/clientext/nexadmin/deferredTargetSubmitWAS.do">nexadminDeferredTargetController</prop>
+
+				<prop key="/clientext/nexadmin/delayAsyncList.do">nexadminDelayAsyncController</prop>
+				-->
+				
+				<!-- 어플리케이션 구조 분석 (폐기)
+				<prop key="/clientext/nexadmin/structureAnalysisList.do">nexadminStructureAnalysisController</prop>                
+				<prop key="/clientext/nexadmin/structureAnalysisDetailNodeco.do">nexadminStructureAnalysisController</prop>                
+				-->
+				
+				<!-- 로그 제어 (폐기)
+				<prop key="/clientext/nexadmin/loggerMonitoringList.do">nexadminLoggerMonitoringController</prop>
+				<prop key="/clientext/nexadmin/loggerMonitoringUpdateLevel.do">nexadminLoggerMonitoringController</prop>
+				-->
+				
+				<!-- 디퍼드 프로세스 제어 (폐기)
+				<prop key="/clientext/nexadmin/deferredMonitoringList.do">nexadminDeferredMonitoringController</prop>
+				<prop key="/clientext/nexadmin/deferredMonitoringExecute.do">nexadminDeferredMonitoringController</prop>
+				<prop key="/clientext/nexadmin/deferredMonitoringUpdateConfig.do">nexadminDeferredMonitoringController</prop>
+				 -->
+
+				<!-- 캐시제어(외부호출용) / 캐시제어(C) / 캐시제어(Java) -->
+				<prop key="/clientext/nexadmin/cacheMonitoringList.do">nexadminCacheMonitoringController</prop>
+				<prop key="/clientext/nexadmin/cacheMonitoringCList.do">nexadminCCacheMonitoringController</prop>
+				<prop key="/clientext/nexadmin/cacheMonitoringJavaList.do">nexadminJavaCacheMonitoringController</prop>
+				<prop key="/clientext/nexadmin/cacheMonitoringRefresh.do">nexadminCacheMonitoringController</prop>
+				<prop key="/clientext/nexadmin/cacheMonitoringRefreshC.do">nexadminCCacheMonitoringController</prop>
+				<prop key="/clientext/nexadmin/cacheMonitoringRefreshJava.do">nexadminJavaCacheMonitoringController</prop>
+				<prop key="/clientext/nexadmin/cacheMonitoringRefreshEachC.do">nexadminCCacheMonitoringController</prop>
+				<prop key="/clientext/nexadmin/cacheMonitoringRefreshEachJava.do">nexadminJavaCacheMonitoringController</prop>
+				<prop key="/clientext/nexadmin/cacheMonitoringRefresh4ExternalCall.do">nexadminCacheMonitoringController</prop>
+				<prop key="/clientext/nexadmin/cacheMonitoringCheckJava.do">nexadminJavaCacheMonitoringController</prop>
+                <prop key="/clientext/nexadmin/cacheMonitoringCheckJavaExternalCall.do">nexadminJavaCacheMonitoringController</prop>
+				<prop key="/clientext/nexadmin/cacheMonitoringCheckC.do">nexadminCCacheMonitoringController</prop>
+				<prop key="/clientext/nexadmin/cacheMonitoringCheckC4ExternalCall.do">nexadminCacheMonitoringController</prop>
+
+				<!-- 해당 서버의 업무 컴포넌트들을 하나씩 초기화함. 업무 컴포넌트를 캐싱하는 (운영)환경에서 성능향상을 위해 	배포 완료 후 사용. -->
+				<prop key="/clientext/nexadmin/cacheMonitoringBizCompInit.do">nexadminCacheMonitoringController</prop>
+				
+				<!-- 메타데이터 갱신 (개발기간 중 빌드배포 시마다 갱신되는 메타데이터를 DB에 반영하는 역할. 운영 시에는 사용하지 않는 것이 원칙) -->
+				<prop key="/clientext/nexadmin/monitorTargetDirectory.do">nexadminMetadataController</prop>
+
+				<!-- TCP 모니터링 (폐기)
+				<prop key="/clientext/nexadmin/tcpMonitoringList.do">nexadminTcpMonitoringController</prop>
+				-->
+				
+				<!-- 자원 감시자 (폐기)
+				<prop key="/clientext/nexadmin/timedResourceWatcherMonitoringList.do">nexadminTimedResourceWatcherMonitoringController</prop>
+				-->
+				
+				<!-- 트랜잭션 및 컴포넌트 정보 (대체 후 폐기)
+				<prop key="/clientext/nexadmin/componentMonitoringList.do">nexadminComponentMonitoringController</prop>
+				<prop key="/clientext/nexadmin/componentMonitoringDetailNodeco.do">nexadminComponentMonitoringController</prop>                
+				-->
+				
+				<!-- 전문 레이아웃 (폐기)
+				<prop key="/clientext/nexadmin/ioLayoutMonitoringList.do">nexadminIoLayoutMonitoringController</prop>
+				<prop key="/clientext/nexadmin/ioLayoutMonitoringDetailNodeco.do">nexadminIoLayoutMonitoringController</prop>                
+				 -->
+
+				<!-- 데이터소스 정보 (폐기)
+				<prop key="/clientext/nexadmin/sqlManagerMonitoringList.do">nexadminSqlManagerMonitoringController</prop>
+				-->
+
+				<!-- 쓰레드 (폐기)
+				<prop key="/clientext/nexadmin/threadManagerMonitoringList.do">nexadminThreadManagerMonitoringController</prop>
+				<prop key="/clientext/nexadmin/threadManagerMonitoringKill.do">nexadminThreadManagerMonitoringController</prop>
+				 -->
+
+				<!-- 거래 로그 항목 (폐기)
+				<prop key="/clientext/nexadmin/transactionLogItemList.do">nexadminTransactionLogItemController</prop>
+				<prop key="/clientext/nexadmin/transactionLogItemInsertView.do">nexadminTransactionLogItemController</prop>
+				<prop key="/clientext/nexadmin/transactionLogItemUpdateView.do">nexadminTransactionLogItemController</prop>
+				<prop key="/clientext/nexadmin/transactionLogItemDuplicateCheck.do">nexadminTransactionLogItemController</prop>
+				<prop key="/clientext/nexadmin/transactionLogItemInsert.do">nexadminTransactionLogItemController</prop>
+				<prop key="/clientext/nexadmin/transactionLogItemUpdate.do">nexadminTransactionLogItemController</prop>
+				<prop key="/clientext/nexadmin/transactionLogItemDelete.do">nexadminTransactionLogItemController</prop>
+				<prop key="/clientext/nexadmin/transactionLogItemUpdateUsed.do">nexadminTransactionLogItemController</prop>
+				 -->
+
+				<!-- 사용자 별 로그레벨 관리 -->
+				<prop key="/clientext/nexadmin/logLevelByUserList.do">nexadminLogLevelByUserController</prop>
+				<prop key="/clientext/nexadmin/logLevelByUserInsertView.do">nexadminLogLevelByUserController</prop>
+				<prop key="/clientext/nexadmin/logLevelByUserDuplicateCheck.do">nexadminLogLevelByUserController</prop>
+				<prop key="/clientext/nexadmin/logLevelByUserInsert.do">nexadminLogLevelByUserController</prop>
+				<prop key="/clientext/nexadmin/logLevelByUserDelete.do">nexadminLogLevelByUserController</prop>
+				<prop key="/clientext/nexadmin/logLevelByUserUpdate.do">nexadminLogLevelByUserController</prop>
+
+				<!-- 거래 별 로그레벨 관리 -->
+				<prop key="/clientext/nexadmin/logLevelByTRList.do">nexadminLogLevelByTRController</prop>
+				<!-- prop key="/clientext/nexadmin/logLevelByTRInsertView.do">nexadminLogLevelByTRController</prop -->
+				<prop key="/clientext/nexadmin/logLevelByTRDuplicateCheck.do">nexadminLogLevelByTRController</prop>
+				<!--prop key="/clientext/nexadmin/logLevelByTRInsert.do">nexadminLogLevelByTRController</prop -->
+				<!--prop key="/clientext/nexadmin/logLevelByTRDelete.do">nexadminLogLevelByTRController</prop -->
+				<prop key="/clientext/nexadmin/logLevelByTRUpdate.do">nexadminLogLevelByTRController</prop>
+				<prop key="/clientext/nexadmin/trLogLevelHistoryList.do">nexadminLogLevelByTRController</prop>
+
+				<!-- 서버상태조회(Java) -->
+				<prop key="/clientext/nexadmin/serverStatusList.do">nexadminServerStatusController</prop>
+				<prop key="/clientext/nexadmin/serverStatusRefresh.do">nexadminServerStatusController</prop>
+				<prop key="/clientext/nexadmin/serverUpdate.do">nexadminServerStatusController</prop>
+                <prop key="/clientext/nexadmin/serverStatusRefreshExternal.do">nexadminServerStatusController</prop>
+
+				<!-- (응용로그를 제외한) 여타 로그레벨(Java) -->
+				<prop key="/clientext/nexadmin/logLevelList.do">nexadminLogLevelController</prop>
+				<prop key="/clientext/nexadmin/logLevelUpdate.do">nexadminLogLevelController</prop>
+				<prop key="/clientext/nexadmin/logLevelReset.do">nexadminLogLevelController</prop>
+
+				<!-- 서버별 서비스IO (Java) -->
+				<prop key="/clientext/nexadmin/serviceIoServerList.do">nexadminServiceIoController</prop>
+				<prop key="/clientext/frame/serviceIoComponentTree.do">nexadminServiceIoController</prop>
+				<prop key="/clientext/frame/serviceIoTransactionView.do">nexadminServiceIoController</prop>
+                
+                <!-- 거래 수정 이력 조회 / 캐시 갱신 이력 조회 -->
+                <prop key="/clientext/nexadmin/transactionHistoryList.do">nexadminTransactionHistoryController</prop>
+                <prop key="/clientext/nexadmin/cacheRefreshHistoryList.do">nexadminCacheRefreshHistoryController</prop>
+                
+                <!-- 업무구분관리 -->
+                <prop key="/clientext/nexadmin/bizGroupList.do">nexadminBizGroupController</prop>
+                <prop key="/clientext/nexadmin/bizGroupInsertView.do">nexadminBizGroupController</prop>
+                <prop key="/clientext/nexadmin/bizGroupUpdateView.do">nexadminBizGroupController</prop>
+                <prop key="/clientext/nexadmin/bizGroupDelete.do">nexadminBizGroupController</prop>
+                <prop key="/clientext/nexadmin/bizGroupInsert.do">nexadminBizGroupController</prop>
+                <prop key="/clientext/nexadmin/bizGroupUpdate.do">nexadminBizGroupController</prop>
+                <prop key="/clientext/nexadmin/bizGroupDuplicateCheck.do">nexadminBizGroupController</prop>
+                
+                <!-- 영업일자 일괄체크 (영업일자 체크는 캐시제어에서 수행하지만 자주 수행하는 작업이므로 별도 제공 ) -->
+                <prop key="/clientext/nexadmin/salesDateCheckAll.do">nexadminSalesDateCheckController</prop>
+                
+                <!-- 서버 관리 -->
+                <prop key="/clientext/nexadmin/serverList.do">nexadminServerController</prop>
+                <prop key="/clientext/nexadmin/serverInsertView.do">nexadminServerController</prop>
+                <prop key="/clientext/nexadmin/serverInsert.do">nexadminServerController</prop>
+                <prop key="/clientext/nexadmin/serverDelete.do">nexadminServerController</prop>
+			</props>
+		</property>
+	</bean>
+		
+</beans>

@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+	<!-- 
+	<bean id="nexadminMbeanDAO" class="skcc.nexcore.clientext.nexadmin.dao.NexadminMbeanDAO"
+		parent="baseDAO" />
+	<bean id="nexadminManagedMbeanDAO"
+		class="skcc.nexcore.clientext.nexadmin.dao.NexadminManagedMbeanDAO"
+		parent="baseDAO" />
+	<bean id="nexadminManagedCacheDAO"
+		class="skcc.nexcore.clientext.nexadmin.dao.NexadminManagedCacheDAO"
+		parent="baseDAO" />
+	 -->
+
+	<!-- nexcore database -->
+	<!--
+		<bean id="nexadminTxControlDAO"
+		class="skcc.nexcore.clientext.nexadmin.dao.NexadminTxControlDAO"
+		parent="nexcoreBaseDAO" /> <bean id="nexadminTxControlExpressionDAO"
+		class="skcc.nexcore.clientext.nexadmin.dao.NexadminTxControlExpressionDAO"
+		parent="nexcoreBaseDAO" />
+	-->
+	<bean id="nexadminWasInstanceDAO"
+		class="skcc.nexcore.clientext.nexadmin.dao.NexadminWasInstanceDAO"
+		parent="nexcoreBaseDAO" />
+	<!-- 
+	<bean id="nexadminWasClusterDAO"
+		class="skcc.nexcore.clientext.nexadmin.dao.NexadminWasClusterDAO"
+		parent="nexcoreBaseDAO" />
+	 -->
+	<!-- 
+	<bean id="nexadminCodeGroupDAO"
+		class="skcc.nexcore.clientext.nexadmin.dao.NexadminCodeGroupDAO"
+		parent="nexcoreBaseDAO" />
+	<bean id="nexadminCodeItemDAO" class="skcc.nexcore.clientext.nexadmin.dao.NexadminCodeItemDAO"
+		parent="nexcoreBaseDAO" />
+	<bean id="nexadminCodeAttributeDAO"
+		class="skcc.nexcore.clientext.nexadmin.dao.NexadminCodeAttributeDAO"
+		parent="nexcoreBaseDAO" />
+	  -->
+	<!-- 
+	<bean id="nexadminMessageDAO" class="skcc.nexcore.clientext.nexadmin.dao.NexadminMessageDAO"
+		parent="nexcoreBaseDAO" />
+	 -->
+	 
+	<bean id="nexadminServerManagingDAO" class="skcc.nexcore.clientext.nexadmin.dao.NexadminServerManagingDAO"
+		parent="nexcoreBaseDAO" />
+        
+    <bean id="nexadminServerDAO" class="skcc.nexcore.clientext.nexadmin.dao.NexadminServerDAO"
+        parent="nexcoreBaseDAO" />
+
+	<!-- 
+	<bean id="nexadminAdditionalMessageDAO"
+		class="skcc.nexcore.clientext.nexadmin.dao.NexadminAdditionalMessageDAO"
+		parent="nexcoreBaseDAO" />
+	 -->
+
+	<bean id="nexadminComponentListDAO"
+		class="skcc.nexcore.clientext.nexadmin.dao.NexadminComponentListDAO"
+		parent="nexcoreBaseDAO" />
+	<bean id="nexadminServiceListDAO"
+		class="skcc.nexcore.clientext.nexadmin.dao.NexadminServiceListDAO"
+		parent="nexcoreBaseDAO" />
+	<bean id="nexadminTransactionDAO"
+		class="skcc.nexcore.clientext.nexadmin.dao.NexadminTransactionDAO"
+		parent="nexcoreBaseDAO" />
+	<bean id="nexadminMediaGroupDAO"
+		class="skcc.nexcore.clientext.nexadmin.dao.NexadminMediaGroupDAO"
+		parent="nexcoreBaseDAO" />
+	<bean id="nexadminBaseMsgDAO" class="skcc.nexcore.clientext.nexadmin.dao.NexadminBaseMsgDAO"
+		parent="nexcoreBaseExtDAO" />
+	<bean id="nexadminSplmMsgDAO" class="skcc.nexcore.clientext.nexadmin.dao.NexadminSplmMsgDAO"
+		parent="nexcoreBaseExtDAO" />
+
+	<!--
+		<bean id="nexadminOnlineComponentDAO"
+		class="skcc.nexcore.clientext.nexadmin.dao.NexadminOnlineComponentDAO"
+		parent="nexcoreBaseDAO" /> <bean id="nexadminOnlineSqlDAO"
+		class="skcc.nexcore.clientext.nexadmin.dao.NexadminOnlineSqlDAO"
+		parent="nexcoreBaseDAO" /> <bean id="nexadminBizUnitDAO"
+		class="skcc.nexcore.clientext.nexadmin.dao.NexadminBizUnitDAO"
+		parent="nexcoreBaseDAO" /> <bean id="nexadminMethodDAO"
+		class="skcc.nexcore.clientext.nexadmin.dao.NexadminMethodDAO"
+		parent="nexcoreBaseDAO" /> <bean id="nexadminMethodIoDAO"
+		class="skcc.nexcore.clientext.nexadmin.dao.NexadminMethodIoDAO"
+		parent="nexcoreBaseDAO" /> <bean id="nexadminDelayAsyncDAO"
+		class="skcc.nexcore.clientext.nexadmin.dao.NexadminDelayAsyncDAO"
+		parent="nexcoreBaseDAO" /> <bean id="nexadminDeferredTargetDAO"
+		class="skcc.nexcore.clientext.nexadmin.dao.NexadminDeferredTargetDAO"
+		parent="nexcoreBaseDAO" /> <bean id="nexadminStructureAnalysisDAO"
+		class="skcc.nexcore.clientext.nexadmin.dao.NexadminStructureAnalysisDAO"
+		parent="nexcoreBaseDAO" /> <bean id="nexadminDeferredActiveDAO"
+		class="skcc.nexcore.clientext.nexadmin.dao.NexadminDeferredActiveDAO"
+		parent="nexcoreBaseDAO" /> <bean id="nexadminTransactionLogItemDAO"
+		class="skcc.nexcore.clientext.nexadmin.dao.NexadminTransactionLogItemDAO"
+		parent="nexcoreBaseDAO" />
+	-->
+
+	<bean id="nexadminLogLevelByUserDAO"
+		class="skcc.nexcore.clientext.nexadmin.dao.NexadminLogLevelByUserDAO"
+		parent="nexcoreBaseDAO" />
+
+	<bean id="nexadminLogLevelByTRDAO"
+		class="skcc.nexcore.clientext.nexadmin.dao.NexadminLogLevelByTRDAO"
+		parent="nexcoreBaseDAO" />
+        
+    <bean id="nexadminTransactionHistoryDAO"
+        class="skcc.nexcore.clientext.nexadmin.dao.NexadminTransactionHistoryDAO"
+        parent="nexcoreBaseDAO" />
+        
+    <bean id="nexadminCacheHistoryDAO"
+    	class="skcc.nexcore.clientext.nexadmin.dao.NexadminCacheHistoryDAO"
+    	parent="nexcoreBaseDAO" />
+    
+    <bean id="nexadminCacheNameDAO"
+    	class="skcc.nexcore.clientext.nexadmin.dao.NexadminCacheNameDAO"
+    	parent="nexcoreBaseDAO" />
+
+	<!-- 
+	<bean id="nexadminMbeanExecutor"
+		class="skcc.nexcore.clientext.nexadmin.executor.NexadminMbeanExecutor">
+		<property name="nexadminManagedMbeanDAO" ref="nexadminManagedMbeanDAO" />
+		<property name="nexadminWasInstanceDAO" ref="nexadminWasInstanceDAO" />
+	</bean>
+	 -->
+	
+	<bean id="nexadminBizGroupDAO"
+		class="skcc.nexcore.clientext.nexadmin.dao.NexadminBizGroupDAO"
+		parent="nexcoreBaseDAO" />
+
+	<!-- 
+	<bean id="nexadminManagedMbeanService"
+		class="skcc.nexcore.clientext.nexadmin.service.NexadminManagedMbeanService">
+		<property name="nexadminManagedMbeanDAO" ref="nexadminManagedMbeanDAO" />
+	</bean>
+	 -->
+	 <!-- 
+	<bean id="nexadminManagedCacheService"
+		class="skcc.nexcore.clientext.nexadmin.service.NexadminManagedCacheService">
+		<property name="nexadminManagedCacheDAO" ref="nexadminManagedCacheDAO" />
+	</bean>
+	  -->
+
+	<!--
+		<bean id="nexadminTxControlService"
+		class="skcc.nexcore.clientext.nexadmin.service.NexadminTxControlService">
+		<property name="nexadminTxControlDAO" ref="nexadminTxControlDAO"/>
+		</bean> <bean id="nexadminTxControlExpressionService"
+		class="skcc.nexcore.clientext.nexadmin.service.NexadminTxControlExpressionService">
+		<property name="nexadminTxControlExpressionDAO"
+		ref="nexadminTxControlExpressionDAO"/> </bean>
+	-->
+	<bean id="nexadminWasInstanceService"
+		class="skcc.nexcore.clientext.nexadmin.service.NexadminWasInstanceService">
+		<property name="nexadminWasInstanceDAO" ref="nexadminWasInstanceDAO" />
+	</bean>
+
+	<!-- 
+	<bean id="nexadminWasClusterService"
+		class="skcc.nexcore.clientext.nexadmin.service.NexadminWasClusterService">
+		<property name="nexadminWasClusterDAO" ref="nexadminWasClusterDAO" />
+	</bean>
+	 -->
+
+	<!-- 
+	<bean id="nexadminCodeGroupService"
+		class="skcc.nexcore.clientext.nexadmin.service.NexadminCodeGroupService">
+		<property name="nexadminCodeGroupDAO" ref="nexadminCodeGroupDAO" />
+	</bean>
+	<bean id="nexadminCodeItemService"
+		class="skcc.nexcore.clientext.nexadmin.service.NexadminCodeItemService">
+		<property name="nexadminCodeItemDAO" ref="nexadminCodeItemDAO" />
+	</bean>
+	<bean id="nexadminCodeAttributeService"
+		class="skcc.nexcore.clientext.nexadmin.service.NexadminCodeAttributeService">
+		<property name="nexadminCodeAttributeDAO" ref="nexadminCodeAttributeDAO" />
+	</bean>
+	 -->
+	<!-- 
+	<bean id="nexadminMessageService"
+		class="skcc.nexcore.clientext.nexadmin.service.NexadminMessageService">
+		<property name="nexadminMessageDAO" ref="nexadminMessageDAO" />
+	</bean>
+	 -->
+
+	<!-- ADDITIONAL MESSAGE 
+	<bean id="nexadminAdditionalMessageService"
+		class="skcc.nexcore.clientext.nexadmin.service.NexadminAdditionalMessageService">
+		<property name="nexadminAdditionalMessageDAO" ref="nexadminAdditionalMessageDAO" />
+	</bean>
+	-->
+
+	<!--  -->
+	<bean id="nexadminComponentListService"
+		class="skcc.nexcore.clientext.nexadmin.service.NexadminComponentListService">
+		<property name="nexadminComponentListDAO" ref="nexadminComponentListDAO" />
+	</bean>
+
+	<bean id="nexadminServiceListService"
+		class="skcc.nexcore.clientext.nexadmin.service.NexadminServiceListService">
+		<property name="nexadminServiceListDAO" ref="nexadminServiceListDAO" />
+	</bean>
+
+	<bean id="nexadminTransactionService"
+		class="skcc.nexcore.clientext.nexadmin.service.NexadminTransactionService">
+		<property name="nexadminTransactionDAO" ref="nexadminTransactionDAO" />
+	</bean>
+
+	<bean id="nexadminMediaGroupService"
+		class="skcc.nexcore.clientext.nexadmin.service.NexadminMediaGroupService">
+		<property name="nexadminMediaGroupDAO" ref="nexadminMediaGroupDAO" />
+	</bean>
+
+	<bean id="nexadminBaseMsgService"
+		class="skcc.nexcore.clientext.nexadmin.service.NexadminBaseMsgService">
+		<property name="nexadminBaseMsgDAO" ref="nexadminBaseMsgDAO" />
+	</bean>
+
+	<bean id="nexadminSplmMsgService"
+		class="skcc.nexcore.clientext.nexadmin.service.NexadminSplmMsgService">
+		<property name="nexadminSplmMsgDAO" ref="nexadminSplmMsgDAO" />
+	</bean>
+
+	<!--
+		<bean id="nexadminOnlineComponentService"
+		class="skcc.nexcore.clientext.nexadmin.service.NexadminOnlineComponentService">
+		<property name="nexadminOnlineComponentDAO"
+		ref="nexadminOnlineComponentDAO"/> </bean> <bean
+		id="nexadminOnlineSqlService"
+		class="skcc.nexcore.clientext.nexadmin.service.NexadminOnlineSqlService">
+		<property name="nexadminOnlineSqlDAO" ref="nexadminOnlineSqlDAO"/>
+		</bean> <bean id="nexadminBizUnitService"
+		class="skcc.nexcore.clientext.nexadmin.service.NexadminBizUnitService">
+		<property name="nexadminBizUnitDAO" ref="nexadminBizUnitDAO"/> </bean>
+		<bean id="nexadminMethodService"
+		class="skcc.nexcore.clientext.nexadmin.service.NexadminMethodService">
+		<property name="nexadminMethodDAO" ref="nexadminMethodDAO"/> </bean>
+		<bean id="nexadminMethodIoService"
+		class="skcc.nexcore.clientext.nexadmin.service.NexadminMethodIoService">
+		<property name="nexadminMethodIoDAO" ref="nexadminMethodIoDAO"/>
+		</bean>
+	-->
+
+	<!-- 
+	<bean id="nexadminMbeanService"
+		class="skcc.nexcore.clientext.nexadmin.service.NexadminMbeanService">
+		<property name="nexadminMbeanDAO" ref="nexadminMbeanDAO" />
+	</bean>
+	<bean id="nexadminMbeanRunService"
+		class="skcc.nexcore.clientext.nexadmin.service.NexadminMbeanRunService">
+	</bean>
+	 -->
+
+	<!--
+		<bean id="nexadminDeferredTargetService"
+		class="skcc.nexcore.clientext.nexadmin.service.NexadminDeferredTargetService">
+		<property name="nexadminDeferredTargetDAO"
+		ref="nexadminDeferredTargetDAO"/> </bean> <bean
+		id="nexadminDeferredMonitoringService"
+		class="skcc.nexcore.clientext.nexadmin.service.NexadminDeferredMonitoringService">
+		<property name="nexadminDeferredActiveDAO"
+		ref="nexadminDeferredActiveDAO"/> </bean> <bean
+		id="nexadminDelayAsyncService"
+		class="skcc.nexcore.clientext.nexadmin.service.NexadminDelayAsyncService">
+		<property name="nexadminDelayAsyncDAO" ref="nexadminDelayAsyncDAO"/>
+		</bean> <bean id="nexadminStructureAnalysisService"
+		class="skcc.nexcore.clientext.nexadmin.service.NexadminStructureAnalysisService">
+		<property name="nexadminStructureAnalysisDAO"
+		ref="nexadminStructureAnalysisDAO"/> </bean> <bean
+		id="nexadminTransactionLogItemService"
+		class="skcc.nexcore.clientext.nexadmin.service.NexadminTransactionLogItemService">
+		<property name="nexadminTransactionLogItemDAO"
+		ref="nexadminTransactionLogItemDAO"/> </bean>
+	-->
+
+	<bean id="nexadminLogLevelByUserService"
+		class="skcc.nexcore.clientext.nexadmin.service.NexadminLogLevelByUserService">
+		<property name="nexadminLogLevelByUserDAO" ref="nexadminLogLevelByUserDAO" />
+	</bean>
+
+	<bean id="nexadminLogLevelByTRService"
+		class="skcc.nexcore.clientext.nexadmin.service.NexadminLogLevelByTRService">
+		<property name="nexadminLogLevelByTRDAO" ref="nexadminLogLevelByTRDAO" />
+	</bean>
+
+	<bean id="nexadminServerManagingService"
+		class="skcc.nexcore.clientext.nexadmin.service.NexadminServerManagingService"
+		init-method="init" destroy-method="destroy">
+		<property name="delayInSeconds" value="3" />
+		<property name="periodInSeconds" value="300" />
+		<property name="nexadminWasInstanceDAO" ref="nexadminWasInstanceDAO" />
+		<property name="nexadminServerManagingDAO" ref="nexadminServerManagingDAO" />
+        <property name="nexadminServerDAO" ref="nexadminServerDAO" />
+	</bean>
+    
+    <bean id="nexadminServerService"
+        class="skcc.nexcore.clientext.nexadmin.service.NexadminServerService">
+        <property name="nexadminServerDAO" ref="nexadminServerDAO" />
+    </bean>
+
+	<bean id="nexadminCServerManagingService"
+		class="skcc.nexcore.clientext.nexadmin.service.NexadminCServerManagingService">
+	</bean>
+
+	<bean id="nexadminCacheHistoryService"
+		class="skcc.nexcore.clientext.nexadmin.service.NexadminCacheHistoryService">
+		<property name="nexadminCacheHistoryDAO" ref="nexadminCacheHistoryDAO" />
+		<property name="nexadminCacheNameDAO" ref="nexadminCacheNameDAO" />
+	</bean>
+	
+	<bean id="nexadminLogLevelService"
+		class="skcc.nexcore.clientext.nexadmin.service.NexadminLogLevelService">
+		<property name="nexadminServerManagingService" ref="nexadminServerManagingService" />
+	</bean>
+
+	<bean id="nexadminServiceIoService"
+		class="skcc.nexcore.clientext.nexadmin.service.NexadminServiceIoService">
+		<property name="nexadminServerManagingService" ref="nexadminServerManagingService" />
+	</bean>
+    
+    <bean id="nexadminTransactionHistoryService"
+        class="skcc.nexcore.clientext.nexadmin.service.NexadminTransactionHistoryService">
+        <property name="nexadminTransactionHistoryDAO" ref="nexadminTransactionHistoryDAO" />
+    </bean>
+    
+    <bean id="nexadminBizGroupService"
+    	class="skcc.nexcore.clientext.nexadmin.service.NexadminBizGroupService">
+    	<property name="nexadminBizGroupDAO" ref="nexadminBizGroupDAO" />
+    </bean>
+
+</beans>
